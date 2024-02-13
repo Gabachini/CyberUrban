@@ -29,7 +29,7 @@
             if ($result1->num_rows > 0) {
                 header("Location: InfoPersonalCl.php?cosa=$email");
             } elseif ($result2->num_rows > 0) {
-                header("Location: InfoPersonalCl.php?cosa=$email");
+                header("Location: InfoPersonalTr.php?cosa=$email");
             } else {
                 header("Location: InfoProgrAdm.php?cosa=$email");
             }
