@@ -1,0 +1,359 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>CyberUrban - Programas para empresas</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Free HTML5 Website Template by gettemplates.co" />
+		<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
+		<meta name="author" content="gettemplates.co" />
+
+		<!-- Facebook and Twitter integration -->
+		<meta property="og:title" content=""/>
+		<meta property="og:image" content=""/>
+		<meta property="og:url" content=""/>
+		<meta property="og:site_name" content=""/>
+		<meta property="og:description" content=""/>
+		<meta name="twitter:title" content="" />
+		<meta name="twitter:image" content="" />
+		<meta name="twitter:url" content="" />
+		<meta name="twitter:card" content="" />
+		
+		<!-- Animate.css -->
+		<link rel="stylesheet" href="css/animate.css">
+		<!-- Icomoon Icon Fonts-->
+		<link rel="stylesheet" href="css/icomoon.css">
+		<!-- Bootstrap  -->
+		<link rel="stylesheet" href="css/bootstrap.css">
+		<!-- Theme style  -->
+		<link rel="stylesheet" href="css/style.css">
+
+		<link rel="stylesheet" href="css/login.css">
+
+		<!-- Modernizr JS -->
+		<script src="js/modernizr-2.6.2.min.js"></script>
+		<!-- FOR IE9 below -->
+		<!--[if lt IE 9]>
+		<script src="js/respond.min.js"></script>
+		<![endif]-->
+
+		<script>
+			function comprobarCampos() {
+				var clave1 = document.getElementById("clave11").value;
+				var clave2 = document.getElementById("clave22").value;
+
+				if (clave1 != clave2) {
+					alert("Las contraseñas no coinciden. Por favor, verifica.");
+					return false; // Evitar que el formulario se envíe
+				}
+
+				var email1 = document.getElementById("email11").value;
+
+				var xhr = new XMLHttpRequest();
+				xhr.open("GET", "phpmensaje.php?checkEmail=true&email=" + encodeURIComponent(email1), true);
+
+				xhr.onreadystatechange = function () {
+					console.log("if_1");
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						var response = JSON.parse(xhr.responseText);
+						console.log("if_2");
+						if (response.exists) {
+							alert("El correo ya está registrado. Por favor, utiliza otro correo.");
+							console.log("if_3");
+							return false;
+						}
+					}
+				};
+
+				xhr.send();
+				return true;
+			}
+		</script>
+	</head>
+
+	<body>
+		<div class="fh5co-loader"></div>
+		
+		<div id="page">
+		<nav class="fh5co-nav" role="navigation">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-2">
+						<div id="fh5co-logo"><a href="index.html">CyberUrban</a></div>
+					</div>
+					<div class="col-xs-10 text-right menu-1">
+						<ul>
+							<li><a href="index.html">Inicio</a></li>
+							<li><a href="about.html">Sobre nosotros</a></li>
+							<li class="has-dropdown">
+								<a href="services.html">Services</a>
+								<!--
+									<ul class="dropdown">
+										<li><a href="#">Servicio 1</a></li>
+										<li><a href="#">Servicio 2</a></li>
+										<li><a href="#">Servicio 3</a></li>
+										<li><a href="#">Servicio 4</a></li>
+									</ul>
+								-->
+							</li>
+							<li class="has-dropdown active">
+								<a href="programas.html">Programas para empresas</a>
+								<!--
+									<ul class="dropdown">
+										<li><a href="#">HTML5</a></li>
+										<li><a href="#">CSS3</a></li>
+										<li><a href="#">Sass</a></li>
+										<li><a href="#">jQuery</a></li>
+									</ul>
+								-->
+							</li>
+							<li><a href="work.html">Empresas colaboradoras</a></li>
+							<li><a href="contact.html">Contacto</a></li>
+							<li><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1">Login</button></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+		<header id="fh5co-header" class="fh5co-cover fh5co-cover-sm" role="banner" style="background-image:url(images/Img5.jpg);">
+			<div class="overlay"></div>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center">
+						<div class="display-t">
+							<div class="display-tc animate-box" data-animate-effect="fadeIn">
+								<h1>Programas para empresas</h1>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		
+		<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+			<br>
+			<h2>Aplicaciónes con licencia</h2>
+			<p>Estas son algunas de las aplicaciones de las cuales poseemos licencia.</p>
+		</div>
+
+		<div id="fh5co-services">
+			<div class="container">
+				<div class="col-md-6 col-sm-6 animate-box">
+					<div class="feature-center">
+						<span class="icon icon2">
+							<i class="icon-stack-2"></i>
+						</span>
+						<div class="desc">
+							<h3>Wazuh</h3>
+							<p>Es una plataforma de seguridad informática de código abierto que ofrece detección de amenazas, gestión de seguridad y respuesta a incidentes.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-sm-6 animate-box">
+					<div class="feature-center">
+						<span class="icon icon2">
+							<i class="icon-briefcase"></i>
+						</span>
+						<div class="desc">
+							<h3>Metaesploit</h3>
+							<p>Es una herramienta de prueba de penetración de código abierto que facilita la identificación y explotación de vulnerabilidades en sistemas informáticos.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-sm-6 animate-box">
+					<div class="feature-center">
+						<span class="icon icon2">
+							<i class="icon-archive"></i>
+						</span>
+						<div class="desc">
+							<h3>PhishMe</h3>
+							<p> Es una plataforma de simulación de phishing que ayuda a las empresas a entrenar a sus empleados para reconocer y resistir ataques de phishing mediante la 
+							simulación de situaciones realistas de suplantación de identidad.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-sm-6 animate-box">
+					<div class="feature-center">
+						<span class="icon icon2">
+							<i class="icon-flow-branch"></i>
+						</span>
+						<div class="desc">
+							<h3>Nessus Compliance Checks</h3>
+							<p>Es una funcionalidad de la herramienta de escaneo de vulnerabilidades Nessus, diseñada para evaluar el cumplimiento de sistemas con estándares de seguridad y 
+							regulaciones específicas a través de pruebas automatizadas.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+			<br>
+			<h2>Aplicaciónes propias</h2>
+			<p>Estas son algunas de nuestras aplicaciones.</p>
+		</div>
+
+		<div id="fh5co-services">
+			<div class="container">
+				<div class="col-md-6 col-sm-6 animate-box">
+					<div class="feature-center">
+						<span class="icon icon2">
+							<i class="icon-square-minus"></i>
+						</span>
+						<div class="desc">
+							<h3>GuardianSecure: Plataforma de Seguridad Móvil</h3>
+							<p>Es una aplicación móvil diseñada para ofrecer seguridad cibernética personalizada directamente en dispositivos móviles. 
+							La aplicación proporciona herramientas intuitivas y funciones de seguridad para que los usuarios mantengan sus dispositivos 
+							seguros mientras están en movimiento.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-sm-6 animate-box">
+					<div class="feature-center">
+						<span class="icon icon2">
+							<i class="icon-umbrella"></i>
+						</span>
+						<div class="desc">
+							<h3>SecureBackup Pro: Solución de Respaldo y Recuperación Empresarial</h3>
+							<p>Es una aplicación empresarial diseñada para asegurar la integridad y disponibilidad de datos críticos. Ofrece un enfoque integral para 
+							el respaldo y la recuperación de datos, garantizando que las empresas puedan enfrentar cualquier pérdida de datos de manera efectiva.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-sm-6 animate-box">
+					<div class="feature-center">
+						<span class="icon icon2">
+							<i class="icon-share"></i>
+						</span>
+						<div class="desc">
+							<h3>PhishGuard: Detector de Phishing y Entrenamiento de Usuarios</h3>
+							<p>Es una aplicación centrada en la prevención de ataques de phishing, uno de los métodos más comunes de ciberataques. La aplicación ofrece 
+							herramientas para detectar correos electrónicos y mensajes sospechosos, así como para educar a los usuarios sobre cómo reconocer y evitar 
+							ataques de phishing.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-sm-6 animate-box">
+					<div class="feature-center">
+						<span class="icon icon2">
+							<i class="icon-upload"></i>
+						</span>
+						<div class="desc">
+							<h3>SecureChat: Mensajería Empresarial Segura</h3>
+							<p>Es una aplicación de mensajería diseñada específicamente para entornos empresariales que prioriza la seguridad y la privacidad de las comunicaciones. 
+							La aplicación utiliza cifrado de extremo a extremo y características adicionales para proteger la confidencialidad de las conversaciones comerciales.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="column" id="main">
+								<h1>Acceder</h1>
+								<form method="post" action="phplogin.php">
+									<div class="form-group">
+									<label for="exampleInputEmail1">Correo </label>
+									<input type="email" class="form-control" name="EmailLogin" id="InputEmail2" aria-describedby="emailHelp" placeholder="Correo" required>
+									</div>
+									<div class="form-group">
+									<label for="exampleInputPassword1">Contraseña</label>
+									<input type="password" class="form-control" name="PasswordLogin" id="InputPassword2" placeholder="Contraseña" required>
+									</div>
+									<button type="submit" class="btn btn-primary">Acceder</button>
+								</form>
+							</div>
+							<div class="column" id="secondary">
+								<div class="sec-content">
+									<h2>¡Registrate!</h2>
+									<h3>¿Aún no eres usuario? ¡Crea a tu cuenta aquí!</h3>
+									<li><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2">Registrarse</button></li>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class="column" id="main">
+							<h1>Registrarse</h1>
+							<h3>¿Aún no eres miembro? ¡Únete a nuestro grupo ahora mismo!</h3>
+							<form method="post" action="phpregistre.php">
+								<div class="form-group">
+									<label for="exampleInputName">Nombre completo</label>
+									<input type="name" class="form-control" name="nombre" id="nombre1" placeholder="Nombre" required>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputName">Dirección</label>
+									<input type="name" class="form-control" name="direccion" id="direccion1" placeholder="Nombre" required>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputName">Teléfono</label>
+									<input type="name" class="form-control" name="numtel" id="numtel1" placeholder="Nombre" required>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputEmail1">Correo </label>
+									<input type="email" class="form-control" name="email" id="email11" aria-describedby="emailHelp" placeholder="Correo" required>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputPassword1">Contraseña</label>
+									<input type="password" class="form-control" name="clave1" id="clave11" placeholder="Contraseña" required>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputPassword1">Comprobar contraseña</label>
+									<input type="password" class="form-control" name="clave2" id="clave22" placeholder="Contraseña" required>
+								</div>
+								<button type="submit" class="btn btn-primary" onclick="return comprobarCampos()">Registrarse</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+	<footer id="fh5co-core-feature" role="contentinfo">
+		<div class="container">
+			<div class="row copyright">
+				<div class="col-md-12 text-center">
+					<p>
+						<ul class="fh5co-social-icons">
+							<li><a href="https://twitter.com/CyberUrban1505"><i class="icon-twitter"></i></a></li>
+							<li><a href="https://www.facebook.com/profile.php?id=61553871277103&is_tour_dismissed=true"><i class="icon-facebook"></i></a></li>
+						</ul>
+					</p>
+				</div>
+			</div>
+
+		</div>
+	</footer>
+	</div>
+
+	<div class="gototop js-top">
+		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+	</div>
+	
+	<!-- jQuery -->
+	<script src="js/jquery.min.js"></script>
+	<!-- jQuery Easing -->
+	<script src="js/jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="js/bootstrap.min.js"></script>
+	<!-- Waypoints -->
+	<script src="js/jquery.waypoints.min.js"></script>
+	<!-- Main -->
+	<script src="js/main.js"></script>
+</html>
+

@@ -1,0 +1,317 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>CyberUrban - Sobre nosotros</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Free HTML5 Website Template by gettemplates.co" />
+		<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
+		<meta name="author" content="gettemplates.co" />
+
+		<!-- Facebook and Twitter integration -->
+		<meta property="og:title" content=""/>
+		<meta property="og:image" content=""/>
+		<meta property="og:url" content=""/>
+		<meta property="og:site_name" content=""/>
+		<meta property="og:description" content=""/>
+		<meta name="twitter:title" content="" />
+		<meta name="twitter:image" content="" />
+		<meta name="twitter:url" content="" />
+		<meta name="twitter:card" content="" />
+		
+		<!-- Animate.css -->
+		<link rel="stylesheet" href="css/animate.css">
+		<!-- Icomoon Icon Fonts-->
+		<link rel="stylesheet" href="css/icomoon.css">
+		<!-- Bootstrap  -->
+		<link rel="stylesheet" href="css/bootstrap.css">
+		<!-- Theme style  -->
+		<link rel="stylesheet" href="css/style.css">
+
+		<link rel="stylesheet" href="css/login.css">
+
+		<!-- Modernizr JS -->
+		<script src="js/modernizr-2.6.2.min.js"></script>
+		<!-- FOR IE9 below -->
+		<!--[if lt IE 9]>
+		<script src="js/respond.min.js"></script>
+		<![endif]-->
+
+		<script>
+			function comprobarCampos() {
+				var clave1 = document.getElementById("clave11").value;
+				var clave2 = document.getElementById("clave22").value;
+
+				if (clave1 != clave2) {
+					alert("Las contraseñas no coinciden. Por favor, verifica.");
+					return false; // Evitar que el formulario se envíe
+				}
+
+				var email1 = document.getElementById("email11").value;
+
+				var xhr = new XMLHttpRequest();
+				xhr.open("GET", "phpmensaje.php?checkEmail=true&email=" + encodeURIComponent(email1), true);
+
+				xhr.onreadystatechange = function () {
+					console.log("if_1");
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						var response = JSON.parse(xhr.responseText);
+						console.log("if_2");
+						if (response.exists) {
+							alert("El correo ya está registrado. Por favor, utiliza otro correo.");
+							console.log("if_3");
+							return false;
+						}
+					}
+				};
+
+				xhr.send();
+				return true;
+			}
+		</script>
+	</head>
+
+	<body>
+		<div class="fh5co-loader"></div>
+
+		<div id="page">
+		<nav class="fh5co-nav" role="navigation">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-2">
+						<div id="fh5co-logo"><a href="index.html">CyberUrban</a></div>
+					</div>
+					<div class="col-xs-10 text-right menu-1">
+						<ul>
+							<li><a href="index.html">Inicio</a></li>
+							<li class="active"><a href="about.html">Sobre nosotros</a></li>
+							<li class="has-dropdown">
+								<a href="services.html">Services</a>
+								<!--
+									<ul class="dropdown">
+										<li><a href="#">Servicio 1</a></li>
+										<li><a href="#">Servicio 2</a></li>
+										<li><a href="#">Servicio 3</a></li>
+										<li><a href="#">Servicio 4</a></li>
+									</ul>
+								-->
+							</li>
+							<li class="has-dropdown">
+								<a href="programas.html">Programas para empresas</a>
+								<!--
+									<ul class="dropdown">
+										<li><a href="#">HTML5</a></li>
+										<li><a href="#">CSS3</a></li>
+										<li><a href="#">Sass</a></li>
+										<li><a href="#">jQuery</a></li>
+									</ul>
+								-->
+							</li>
+							<li><a href="work.html">Empresas colaboradoras</a></li>
+							<li><a href="contact.html">Contacto</a></li>
+							<li><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1">Login</button></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+		<header id="fh5co-header" class="fh5co-cover fh5co-cover-sm" role="banner" style="background-image:url(images/Img3.jpg);">
+			<div class="overlay"></div>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center">
+						<div class="display-t">
+							<div class="display-tc animate-box" data-animate-effect="fadeIn">
+								<h1>Sobre nosotros</h1>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		
+		<div id="fh5co-about">
+			<div class="container">
+				<div class="about-content">
+					<div class="row animate-box">
+						<div class="col-md-6 col-md-push-6">
+							<div class="desc">
+								<h3>Historia</h3>
+								<div class="ResumenExplicacion">
+									<p>CyberUrban nació gracias a la idea de dos jóvenes con gran potencial, que buscaban darle un giro de tuerca a la idea de lo que era la ciberseguridad, desafiando lo convencional, 
+									buscando ganarse a su público, no con cuentos, sino qué estrategias audaces y resultados reales. Desde los inicios en un pequeño local ubicado en Roquetas, CyberUrban creció exponencialmente, 
+									ganando reconocimiento por su enfoque único. Hora teniendo en su mano dos grandes edificios en el centro de Barcelona. A pesar de que aún no estamos cerca de nuestra idea de cambiar tal como 
+									se conoce la ciberseguridad, poco a poco vamos avanzando y ganando reconocimiento para en un futuro lograrlo.</p> 
+								</div>
+							</div>
+							<div class="desc">
+								<h3>Misión &amp; Visión</h3>
+								<div class="ResumenExplicacion">
+									<p>En CyberUrban, nuestra misión es revolucionar la industria tal y como la conocemos, poder lograr que personas comunes y empresas puedan forjar un futuro y evolucionar. Nos comprometemos a 
+									proporcionar soluciones de ciberseguridad innovadoras y efectivas que vayan más allá de las expectativas, protegiendo la integridad y la confidencialidad de la información en un mundo digital 
+									en rápido cambio. Somos una empresa con grandes ambiciones y buscamos ser reconocidos como líderes indiscutibles en la vanguardia de la ciberseguridad. Aspiramos a ser el socio confiable de 
+									aquellos que buscan proteger sus activos digitales, destacando por nuestra capacidad para anticipar y superar las amenazas cibernéticas emergentes. Con un enfoque centrado en la innovación, 
+									buscamos liderar la transformación hacia un ciberespacio más seguro y resistente.</p> 
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 col-md-pull-6">
+							<br><br><br>
+							<img class="img-responsive" src="images/Img20.jpg" alt="about">
+							<img class="img-responsive" src="images/Img21.jpg" alt="about">
+						</div>
+						
+					</div>
+				</div>
+				<div class="row animate-box">
+					<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+						<h2>Conoce al Staff</h2>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 col-sm-4 animate-box" data-animate-effect="fadeIn">
+						<div class="fh5co-staff">
+							<img src="images/Img22.jpg" width="500" height="200">
+							<h3>Jairo Morales</h3>
+							<strong class="role">CEO</strong>
+							<div class="ResumenExplicacion">
+								<p>Como co-fundador y CEO de CyberUrban, Jairo aporta una perspectiva innovadora. Su idea de la ciberseguridad es que todos necesitamos estar seguros en un ambiente que no todo el mundo conoce.</p>
+								<a href="https://sites.google.com/bemen3.cat/ipopmoralesjairo/p%C3%A0gina-principal" >Para tener más información sobre Jairo.</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-4 animate-box" data-animate-effect="fadeIn">
+						<div class="fh5co-staff">
+							<img src="images/person2.jpg" width="500" height="200">
+							<h3>Pol Alvarado</h3>
+							<strong class="role">CEO</strong>
+							<div class="ResumenExplicacion">
+								<p>Como co-fundador y CEO, Pol aporta la visión estratégica que nuestra empresa necesita, su enfoque centrado en las necesidades del cliente para reforzar relaciones duraderas y liderando CyberUrban 
+								hacia nuevos horizontes.</p>
+								<a href="https://sites.google.com/bemen3.cat/ipopalvarado/prospecci%C3%B3-professional">Para tener más información sobre Pol.</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-4 animate-box" data-animate-effect="fadeIn">
+						<div class="fh5co-staff">
+							<img src="images/Img19.jpg" width="500" height="200">
+							<h3>Bojack Horseman</h3>
+							<strong class="role">CEO</strong>
+							<div class="ResumenExplicacion">
+								<p>Como parte del CEO de CyberUrban, BoJack Horseman se ha ganado el puesto gracias a su gran experiencia en el análisis de las amenazas, su rápida respuesta a los incidentes y su capacidad de diseñar 
+								soluciones efectivas nos ha consolidado como una de las más confiables del sector.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="column" id="main">
+								<h1>Acceder</h1>
+								<form method="post" action="phplogin.php">
+									<div class="form-group">
+									<label for="exampleInputEmail1">Correo </label>
+									<input type="email" class="form-control" name="EmailLogin" id="InputEmail2" aria-describedby="emailHelp" placeholder="Correo" required>
+									</div>
+									<div class="form-group">
+									<label for="exampleInputPassword1">Contraseña</label>
+									<input type="password" class="form-control" name="PasswordLogin" id="InputPassword2" placeholder="Contraseña" required>
+									</div>
+									<button type="submit" class="btn btn-primary">Acceder</button>
+								</form>
+							</div>
+							<div class="column" id="secondary">
+								<div class="sec-content">
+									<h2>¡Registrate!</h2>
+									<h3>¿Aún no eres usuario? ¡Crea a tu cuenta aquí!</h3>
+									<li><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2">Registrarse</button></li>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class="column" id="main">
+							<h1>Registrarse</h1>
+							<h3>¿Aún no eres miembro? ¡Únete a nuestro grupo ahora mismo!</h3>
+							<form method="post" action="phpregistre.php">
+								<div class="form-group">
+									<label for="exampleInputName">Nombre completo</label>
+									<input type="name" class="form-control" name="nombre" id="nombre1" placeholder="Nombre" required>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputName">Dirección</label>
+									<input type="name" class="form-control" name="direccion" id="direccion1" placeholder="Nombre" required>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputName">Teléfono</label>
+									<input type="name" class="form-control" name="numtel" id="numtel1" placeholder="Nombre" required>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputEmail1">Correo </label>
+									<input type="email" class="form-control" name="email" id="email11" aria-describedby="emailHelp" placeholder="Correo" required>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputPassword1">Contraseña</label>
+									<input type="password" class="form-control" name="clave1" id="clave11" placeholder="Contraseña" required>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputPassword1">Comprobar contraseña</label>
+									<input type="password" class="form-control" name="clave2" id="clave22" placeholder="Contraseña" required>
+								</div>
+								<button type="submit" class="btn btn-primary" onclick="return comprobarCampos()">Registrarse</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+	<footer id="fh5co-core-feature" role="contentinfo">
+		<div class="container">
+			<div class="row copyright">
+				<div class="col-md-12 text-center">
+					<p>
+						<ul class="fh5co-social-icons">
+							<li><a href="https://twitter.com/CyberUrban1505"><i class="icon-twitter"></i></a></li>
+							<li><a href="https://www.facebook.com/profile.php?id=61553871277103&is_tour_dismissed=true"><i class="icon-facebook"></i></a></li>
+						</ul>
+					</p>
+				</div>
+			</div>
+
+		</div>
+	</footer>
+
+	<div class="gototop js-top">
+		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+	</div>
+	
+	<!-- jQuery -->
+	<script src="js/jquery.min.js"></script>
+	<!-- jQuery Easing -->
+	<script src="js/jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="js/bootstrap.min.js"></script>
+	<!-- Waypoints -->
+	<script src="js/jquery.waypoints.min.js"></script>
+	<!-- Main -->
+	<script src="js/main.js"></script>
+</html>
+
