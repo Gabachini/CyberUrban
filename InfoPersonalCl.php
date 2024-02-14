@@ -37,7 +37,7 @@
 	</head>
 
 	<body>
-    <div class="fh5co-loader"></div>
+    	<div class="fh5co-loader"></div>
 		<div id="page">
 		<nav class="fh5co-nav" role="navigation">
 			<div class="container">
@@ -60,20 +60,21 @@
 		</nav>
 
 		<header id="fh5co-header" class="fh5co-cover fh5co-cover-sm-2" role="banner" style="background-image:url(images/Img1.jpeg);">
-			<div class="overlay"></div>
+		</header>
+
+		<div id="fh5co-core-feature">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-8 col-md-offset-2 text-center">
-						<div class="display-t">
-							<div class="display-tc animate-box" data-animate-effect="fadeIn">
-								<h1>CyberUrban</h1>
-								<h2>Empresa de ciberseguridad Española</h2>
+					<div class="features">
+						<div class="col-half animate-box" data-animate-effect="fadeInLeft">
+							<div class="desc">
+								<h3>Información personal</h3>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</header>
+		</div>
 
 		<?php
 			$DATABASE_HOST = 'localhost';
@@ -93,20 +94,27 @@
 
 			// Verificar si se obtuvieron resultados
 			if ($result->num_rows > 0) {
-				// Imprimir la tabla
-				echo "<table border='1'>
-						<tr>
-							<th>Nombre</th>
-							<th>Dirección</th>
-							<th>Número de teléfono</th>
-						</tr>";
-
 				// Imprimir datos de cada fila
 				while ($row = $result->fetch_assoc()) {
-					echo "<tr>
+					echo "<table border='1' id='tabla' border='1'; width='520'>
+						<tr>
+							<th>Nombre</th></th>
 							<td>" . $row["Nom"] . "</td>
+						</tr>;
+
+						<tr>
+							<th>Dirección</th>
 							<td>" . $row["Direccio"] . "</td>
+						</tr>;
+
+						<tr>
+							<th>Número de teléfono</th>
 							<td>" . $row["NumTelefon"] . "</td>
+						</tr>;
+
+						<tr>
+							<th>Usuario</th>
+							<td>" . $row["UsuariEmpresa"] . "</td>
 						</tr>";
 				}
 				echo "</table>";
