@@ -50,12 +50,12 @@
 					<div class="col-xs-10 text-right menu-1">
 						<form method="post">
 							<ul>
-								<li class="active"><button type="submit" name="InfoPers" class="btn btn-primary" data-toggle="modal">Información personal</button></li>
+								<li><button type="submit" name="InfoPers" class="btn btn-primary" data-toggle="modal">Información personal</button></li>
 								<li class="active"><button type="submit" name="Inciden" class="btn btn-primary" data-toggle="modal">Incidencias</button></li>
-								<li class="active"><button type="submit" name="Serv" class="btn btn-primary" data-toggle="modal">Servicios</button></li>
-								<li class="active"><button type="submit" name="Reserv" class="btn btn-primary" data-toggle="modal">Reservas</button></li>
-								<li class="active"><button type="submit" name="Progr" class="btn btn-primary" data-toggle="modal">Programas</button></li>
-								<li class="active"><button type="submit" name="Reseny" class="btn btn-primary" data-toggle="modal">Reseñas</button></li>
+								<li><button type="submit" name="Serv" class="btn btn-primary" data-toggle="modal">Servicios</button></li>
+								<li><button type="submit" name="Reserv" class="btn btn-primary" data-toggle="modal">Reservas</button></li>
+								<li><button type="submit" name="Progr" class="btn btn-primary" data-toggle="modal">Programas</button></li>
+								<li><button type="submit" name="Reseny" class="btn btn-primary" data-toggle="modal">Reseñas</button></li>
 							</ul>
 						</form>
 					</div>
@@ -160,7 +160,7 @@
 									Se utilizará el identificador de la incidencia que quiera cambiar.
 									<div class="form-group">
 										<label for="exampleInputEmail1">Identificador</label>
-										<input type="text" class="form-control" name="InputIdent1" id="InputIdent1" aria-describedby="emailHelp" placeholder="Identificador">
+										<input type="text" class="form-control" name="InputIdent1" id="InputIdent1" aria-describedby="emailHelp" placeholder="Identificador" required>
 									</div>
 									<div class="form-group">
 										<label for="exampleInputEmail1">Descripción</label>
@@ -170,7 +170,7 @@
 										<label for="exampleInputEmail1">Fecha de inici</label>
 										<input type="date" class="form-control" name="InputDate1" id="InputDate1" aria-describedby="emailHelp" placeholder="Nombre">
 									</div>
-									<button type="submit" class="btn btn-primary">Cambiar</button>
+									<button name="CambiIncid" type="submit" class="btn btn-primary">Cambiar</button>
 								</form>
 							</div>
 						</div>
@@ -188,9 +188,9 @@
 								<form method="post">
 									<div class="form-group">
 										<label for="exampleInputEmail1">Descripción</label>
-										<input type="text" class="form-control" name="InputDescr2" id="InputDescr2" aria-describedby="emailHelp" placeholder="Descripción">
+										<input type="text" class="form-control" name="InputDescr2" id="InputDescr2" aria-describedby="emailHelp" placeholder="Descripción" required>
 									</div>
-									<button type="submit" class="btn btn-primary">Crear</button>
+									<button name="AnyaIncid" type="submit" class="btn btn-primary">Crear</button>
 								</form>
 							</div>
 						</div>
@@ -200,6 +200,28 @@
 		</div>
 
 		<?php
+			$DATABASE_HOST = 'localhost';
+			$DATABASE_USER = 'root';
+			$DATABASE_PASS = '';
+			$DATABASE_NAME = 'cyberurban';
+			$email = $_GET['cosa'];
+		
+			$conn = new mysqli($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+		
+			if ($conn->connect_error) {
+				die("Connection failed: " . $conn->connect_error);
+			}
+
+			$ObtenerID = "SELECT IDClient FROM clients WHERE Email = '$email'";
+			$result = mysqli_query($conn,$ObtenerID);
+			$IDClient = mysqli_fetch_array($result);
+
+			$descrp2 = isset($_POST['InputDescr2']) ? $_POST['InputDescr2'] : '';
+			
+			if (empty(!$descrp2)) {
+				$sql1 = "INSERT INTO incidencies (Descripcio,IDClient) VALUES ('$descrp2',$IDClient[0])";
+				$conn->query($sql1);
+			}
 			
 		?>
 	</body>

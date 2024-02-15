@@ -49,11 +49,11 @@
 						<form method="post">
 							<ul>
 								<li class="active"><button type="submit" name="InfoPers" class="btn btn-primary" data-toggle="modal">Información personal</button></li>
-								<li class="active"><button type="submit" name="Inciden" class="btn btn-primary" data-toggle="modal">Incidencias</button></li>
-								<li class="active"><button type="submit" name="Serv" class="btn btn-primary" data-toggle="modal">Servicios</button></li>
-								<li class="active"><button type="submit" name="Reserv" class="btn btn-primary" data-toggle="modal">Reservas</button></li>
-								<li class="active"><button type="submit" name="Progr" class="btn btn-primary" data-toggle="modal">Programas</button></li>
-								<li class="active"><button type="submit" name="Reseny" class="btn btn-primary" data-toggle="modal">Reseñas</button></li>
+								<li><button type="submit" name="Inciden" class="btn btn-primary" data-toggle="modal">Incidencias</button></li>
+								<li><button type="submit" name="Serv" class="btn btn-primary" data-toggle="modal">Servicios</button></li>
+								<li><button type="submit" name="Reserv" class="btn btn-primary" data-toggle="modal">Reservas</button></li>
+								<li><button type="submit" name="Progr" class="btn btn-primary" data-toggle="modal">Programas</button></li>
+								<li><button type="submit" name="Reseny" class="btn btn-primary" data-toggle="modal">Reseñas</button></li>
 							</ul>
 						</form>
 					</div>
