@@ -37,6 +37,171 @@
 	</head>
 
 	<body>
+		<div class="fh5co-loader"></div>
+		<div id="page">
+		<div class="fh5co-loader"></div>
+		<div id="page">
+		<nav class="fh5co-nav" role="navigation">
+			<div class="container">
+				<div class="row">	
+					<div class="col-xs-2">
+						<div id="fh5co-logo">CyberUrban</div>
+					</div>
+					<div class="col-xs-10 text-right menu-1">
+						<form method="post">
+							<ul>
+								<li class="active"><button type="submit" name="InfoPers" class="btn btn-primary" data-toggle="modal">Información personal</button></li>
+								<li class="active"><button type="submit" name="Inciden" class="btn btn-primary" data-toggle="modal">Incidencias</button></li>
+								<li class="active"><button type="submit" name="Serv" class="btn btn-primary" data-toggle="modal">Servicios</button></li>
+								<li class="active"><button type="submit" name="Reserv" class="btn btn-primary" data-toggle="modal">Reservas</button></li>
+								<li class="active"><button type="submit" name="Progr" class="btn btn-primary" data-toggle="modal">Programas</button></li>
+								<li class="active"><button type="submit" name="Reseny" class="btn btn-primary" data-toggle="modal">Reseñas</button></li>
+							</ul>
+						</form>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+		<?php
+			$email = $_GET['cosa'];
+
+			if (isset($_POST["InfoPers"])) {
+				header("Location: InfoPersonalCl.php?cosa=$email");
+			} elseif (isset($_POST["Inciden"])) {
+				header("Location: InfoIncidenCl.php?cosa=$email");
+			} elseif (isset($_POST["Serv"])) {
+				header("Location: InfoServiCl.php?cosa=$email");
+			} elseif (isset($_POST["Reserv"])) {
+				header("Location: InfoReservesCl.php?cosa=$email");
+			} elseif (isset($_POST["Progr"])) {
+				header("Location: InfoProgrCl.php?cosa=$email");
+			} elseif (isset($_POST["Reseny"])) {
+				header("Location: InfoResenyesCl.php?cosa=$email");
+			}
+		?>
+
+		<header id="fh5co-header" class="fh5co-cover fh5co-cover-sm-2" role="banner" style="background-image:url(images/Img1.jpeg);">
+		</header>
+
+		<div id="fh5co-core-feature">
+			<div class="container">
+				<div class="row">
+					<div class="features">
+						<div class="col-half animate-box" data-animate-effect="fadeInLeft">
+							<div class="desc">
+								<h3>Incidencias</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<?php
+			$DATABASE_HOST = 'localhost';
+			$DATABASE_USER = 'root';
+			$DATABASE_PASS = '';
+			$DATABASE_NAME = 'cyberurban';
+			$email = $_GET['cosa'];
+		
+			$conn = new mysqli($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+		
+			if ($conn->connect_error) {
+				die("Connection failed: " . $conn->connect_error);
+			}
+
+			$sql = "SELECT IDIncidencia, Descripcio, DataIncidencia, Estat FROM incidencies WHERE IDClient = (SELECT IDClient FROM clients where Email = '$email');";
+			$result = $conn->query($sql);
+
+			if ($result->num_rows > 0) {
+				while ($row = $result->fetch_assoc()) {
+					echo "<table border='1' id='tabla' border='1'; width='520'>
+						<tr>
+							<th>Identificador de la incidencia</th></th>
+							<td>" . $row["IDIncidencia"] . "</td>
+						</tr>;
+						<tr>
+							<th>Descripción</th></th>
+							<td>" . $row["Descripcio"] . "</td>
+						</tr>;
+
+						<tr>
+							<th>Fecha</th>
+							<td>" . $row["DataIncidencia"] . "</td>
+						</tr>;
+
+						<tr>
+							<th>Estado</th>
+							<td>" . $row["Estat"] . "</td>
+						</tr>;";
+				}
+				echo "</table>";
+			} else {
+				echo "No se encontraron resultados.";
+			}
+			$conn->close();
+		?>
+
+		<br>
+
+		<div id="button1">
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1">Incidencia</button>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2">Añadir incidencia</button>
+		</div>
+
+		<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="column" id="main">
+								<form method="post">
+									Se utilizará el identificador de la incidencia que quiera cambiar.
+									<div class="form-group">
+										<label for="exampleInputEmail1">Identificador</label>
+										<input type="text" class="form-control" name="InputIdent1" id="InputIdent1" aria-describedby="emailHelp" placeholder="Identificador">
+									</div>
+									<div class="form-group">
+										<label for="exampleInputEmail1">Descripción</label>
+										<input type="text" class="form-control" name="InputDescr1" id="InputDescr1" aria-describedby="emailHelp" placeholder="Descripción">
+									</div>
+									<div class="form-group">
+										<label for="exampleInputEmail1">Fecha de inici</label>
+										<input type="date" class="form-control" name="InputDate1" id="InputDate1" aria-describedby="emailHelp" placeholder="Nombre">
+									</div>
+									<button type="submit" class="btn btn-primary">Cambiar</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="column" id="main">
+								<form method="post">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Descripción</label>
+										<input type="text" class="form-control" name="InputDescr2" id="InputDescr2" aria-describedby="emailHelp" placeholder="Descripción">
+									</div>
+									<button type="submit" class="btn btn-primary">Crear</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<?php
+			
+		?>
 	</body>
 
 	<footer id="fh5co-core-feature" role="contentinfo">

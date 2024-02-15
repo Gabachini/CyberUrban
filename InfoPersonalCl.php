@@ -46,18 +46,38 @@
 						<div id="fh5co-logo">CyberUrban</div>
 					</div>
 					<div class="col-xs-10 text-right menu-1">
-						<ul>
-							<li class="active"><a href="InfoPersonalCl.php">Información personal</a></li>
-							<li><a href="about.html">Sobre nosotros</a></li>
-							<li><a href="services.html">Services</a></li>
-							<li><a href="programas.html">Programas para empresas</a></li>
-							<li><a href="work.html">Empresas colaboradoras</a></li>
-							<li><a href="contact.html">Contacto</a></li>
-						</ul>
+						<form method="post">
+							<ul>
+								<li class="active"><button type="submit" name="InfoPers" class="btn btn-primary" data-toggle="modal">Información personal</button></li>
+								<li class="active"><button type="submit" name="Inciden" class="btn btn-primary" data-toggle="modal">Incidencias</button></li>
+								<li class="active"><button type="submit" name="Serv" class="btn btn-primary" data-toggle="modal">Servicios</button></li>
+								<li class="active"><button type="submit" name="Reserv" class="btn btn-primary" data-toggle="modal">Reservas</button></li>
+								<li class="active"><button type="submit" name="Progr" class="btn btn-primary" data-toggle="modal">Programas</button></li>
+								<li class="active"><button type="submit" name="Reseny" class="btn btn-primary" data-toggle="modal">Reseñas</button></li>
+							</ul>
+						</form>
 					</div>
 				</div>
 			</div>
 		</nav>
+
+		<?php
+			$email = $_GET['cosa'];
+
+			if (isset($_POST["InfoPers"])) {
+				header("Location: InfoPersonalCl.php?cosa=$email");
+			} elseif (isset($_POST["Inciden"])) {
+				header("Location: InfoIncidenCl.php?cosa=$email");
+			} elseif (isset($_POST["Serv"])) {
+				header("Location: InfoServiCl.php?cosa=$email");
+			} elseif (isset($_POST["Reserv"])) {
+				header("Location: InfoReservesCl.php?cosa=$email");
+			} elseif (isset($_POST["Progr"])) {
+				header("Location: InfoProgrCl.php?cosa=$email");
+			} elseif (isset($_POST["Reseny"])) {
+				header("Location: InfoResenyesCl.php?cosa=$email");
+			}
+		?>
 
 		<header id="fh5co-header" class="fh5co-cover fh5co-cover-sm-2" role="banner" style="background-image:url(images/Img1.jpeg);">
 		</header>
@@ -92,9 +112,7 @@
 			$sql = "SELECT * FROM clients where Email = '$email'";
 			$result = $conn->query($sql);
 
-			// Verificar si se obtuvieron resultados
 			if ($result->num_rows > 0) {
-				// Imprimir datos de cada fila
 				while ($row = $result->fetch_assoc()) {
 					echo "<table border='1' id='tabla' border='1'; width='520'>
 						<tr>
