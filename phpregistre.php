@@ -27,7 +27,6 @@
                 $sql3 = "INSERT INTO clients (Nom, Direccio, NumTelefon, Email, clave) VALUES
                 ('$nombre', '$direccion', '$telefono', '$correo', '$ClaveEncryp')";
                 $conn->query($sql3);
-                echo "Hola1";
             } catch (Exception $e) {
                 echo "Error: " . $e->getMessage();
             }
