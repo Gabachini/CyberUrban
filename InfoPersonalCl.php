@@ -115,12 +115,82 @@
 						<tr>
 							<th>Usuario</th>
 							<td>" . $row["UsuariEmpresa"] . "</td>
+						</tr>;
+
+						<tr>
+							<th>Correo</th>
+							<td>" . $row["Email"] . "</td>
 						</tr>";
 				}
 				echo "</table>";
 			} else {
 				echo "No se encontraron resultados.";
 			}
+			$conn->close();
+		?>
+
+		<br>
+
+		<div id="button1">
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1">Cambiar datos</button>
+		</div>
+
+		<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="column" id="main">
+								<form method="post" action="phplogin.php">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Nombre</label>
+										<input type="email" class="form-control" name="EmailLogin" id="InputEmail2" aria-describedby="emailHelp" placeholder="Nombre">
+									</div>
+									<div class="form-group">
+										<label for="exampleInputEmail1">Dirección</label>
+										<input type="email" class="form-control" name="EmailLogin" id="InputEmail2" aria-describedby="emailHelp" placeholder="Dirección">
+									</div>
+									<div class="form-group">
+										<label for="exampleInputEmail1">Número de télefono</label>
+										<input type="email" class="form-control" name="EmailLogin" id="InputEmail2" aria-describedby="emailHelp" placeholder="télefono">
+									</div>
+									<div class="form-group">
+										<label for="exampleInputEmail1">Usuario</label>
+										<input type="email" class="form-control" name="EmailLogin" id="InputEmail2" aria-describedby="emailHelp" placeholder="Usuario">
+									</div>
+									<div class="form-group">
+										<label for="exampleInputEmail1">Correo electrónico</label>
+										<input type="email" class="form-control" name="EmailLogin" id="InputEmail2" aria-describedby="emailHelp" placeholder="Correo">
+									</div>
+									<div class="form-group">
+										<label for="exampleInputPassword1">Clave</label>
+										<input type="password" class="form-control" name="PasswordLogin" id="InputPassword2" placeholder="Contraseña">
+									</div>
+									<button type="submit" class="btn btn-primary">Cambiar</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<?php
+			$DATABASE_HOST = 'localhost';
+			$DATABASE_USER = 'root';
+			$DATABASE_PASS = '';
+			$DATABASE_NAME = 'cyberurban';
+			$email = $_GET['cosa'];
+		
+			$conn = new mysqli($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+		
+			if ($conn->connect_error) {
+				die("Connection failed: " . $conn->connect_error);
+			}
+
+			
+
+			$conn->close();
 		?>
 	</body>
 
