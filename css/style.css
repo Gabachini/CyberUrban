@@ -1464,9 +1464,19 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
 #tabla {
-  margin: auto;
+  margin: 10px auto;
+  table-layout: auto;
+}
+
+tr,th,td {
+  text-align: center;
+  padding: 8px;
 }
 
 #button1 {
+  text-align: center;
+}
+
+#CentrarTextoTabla {
   text-align: center;
 }

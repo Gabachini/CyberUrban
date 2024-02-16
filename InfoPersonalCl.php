@@ -48,7 +48,7 @@
 					<div class="col-xs-10 text-right menu-1">
 						<form method="post">
 							<ul>
-								<li class="active"><button type="submit" name="InfoPers" class="btn btn-primary" data-toggle="modal">Información personal</button></li>
+								<li><button type="submit" name="InfoPers" class="btn btn-primary" data-toggle="modal">Información personal</button></li>
 								<li><button type="submit" name="Inciden" class="btn btn-primary" data-toggle="modal">Incidencias</button></li>
 								<li><button type="submit" name="Serv" class="btn btn-primary" data-toggle="modal">Servicios</button></li>
 								<li><button type="submit" name="Reserv" class="btn btn-primary" data-toggle="modal">Reservas</button></li>
