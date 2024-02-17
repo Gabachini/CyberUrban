@@ -131,11 +131,6 @@
 						</tr>;
 
 						<tr>
-							<th>Usuario</th>
-							<td>" . $row["UsuariEmpresa"] . "</td>
-						</tr>;
-
-						<tr>
 							<th>Correo</th>
 							<td>" . $row["Email"] . "</td>
 						</tr>";
@@ -173,10 +168,6 @@
 										<input type="text" class="form-control" name="InputNumbre1" id="InputNumbre1" aria-describedby="emailHelp" placeholder="télefono">
 									</div>
 									<div class="form-group">
-										<label for="exampleInputEmail1">Usuario</label>
-										<input type="text" class="form-control" name="InputUsername1" id="InputUsername1" aria-describedby="emailHelp" placeholder="Usuario">
-									</div>
-									<div class="form-group">
 										<label for="exampleInputEmail1">Correo electrónico</label>
 										<input type="email" class="form-control" name="InputEmail1" id="InputEmail1" aria-describedby="emailHelp" placeholder="Correo">
 									</div>
@@ -209,7 +200,6 @@
 			$nombre = isset($_POST['InputName1']) ? $_POST['InputName1'] : '';
 			$direccion = isset($_POST['InputPath1']) ? $_POST['InputPath1'] : '';
 			$telefono = isset($_POST['InputNumbre1']) ? $_POST['InputNumbre1'] : '';
-			$usuario = isset($_POST['InputUsername1']) ? $_POST['InputUsername1'] : '';
 			$correo = isset($_POST['InputEmail1']) ? $_POST['InputEmail1'] : '';
 			$clave = isset($_POST['InputPassword1']) ? $_POST['InputPassword1'] : '';
 
@@ -230,13 +220,6 @@
 			if (!empty($telefono)) {
 				$ssql3 = "update clients set NumTelefon='$telefono' where Email='$email'";
 				$conn->query($ssql3);
-			}
-
-			//-------------------------------------------------------------------
-
-			if (!empty($usuario)) {
-				$ssql4 = "update clients set UsuariEmpresa='$usuario' where Email='$email'";
-				$conn->query($ssql4);
 			}
 
 			//-------------------------------------------------------------------

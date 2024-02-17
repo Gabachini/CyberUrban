@@ -156,8 +156,8 @@
 					<div class="modal-content">
 						<div class="modal-body">
 							<div class="column" id="main">
-								<form method="post" action="http://localhost/InfoIncidenCl.php?cosa=dylan@gmail.com&v=">
-									Se el identificador de la incidencia que quiera cambiar.
+								<form method="post">
+									Se utiliza el identificador de la incidencia que quiera cambiar.
 									<div class="form-group">
 										<label for="exampleInputEmail1">Identificador</label>
 										<input type="text" class="form-control" name="InputIdent1" id="InputIdent1" aria-describedby="emailHelp" placeholder="Identificador" required>
@@ -212,21 +212,19 @@
 			$result = mysqli_query($conn,$ObtenerID);
 			$IDClient = mysqli_fetch_array($result);
 
-			$descrp1 = isset($_POST['InputDescr1']) ? $_POST['InputDescr1'] : '';
 			$IDInci1 = isset($_POST['InputIdent1']) ? $_POST['InputIdent1'] : '';
+			$descrp1 = isset($_POST['InputDescr1']) ? $_POST['InputDescr1'] : '';
 			$descrp2 = isset($_POST['InputDescr2']) ? $_POST['InputDescr2'] : '';
 
 			if (isset($_POST['CambiIncid'])) {
 				$sql1 = "UPDATE incidencies SET Descripcio = '$descrp1' WHERE IDIncidencia = $IDInci1 AND IDClient = $IDClient[0]";
 				$conn->query($sql1);
-				$conn->close();
-				header("Location: Redirigir.php?cosa=$email&v=" . rand());
 			} elseif (isset($_POST['AnyaIncid'])) {
-				$sql2 = "INSERT INTO incidencies (Descripcio,IDClient) VALUES ('$descrp2',$IDClient[0])";
+				$sql2 = "INSERT INTO incidencies (Descripcio, IDClient) VALUES ('$descrp2', $IDClient[0]);";
 				$conn->query($sql2);
-				$conn->close();
-				header("Location: Redirigir.php?cosa=$email&v=" . rand());
 			}
+
+			$conn->close();
 		?>
 	</body>
 

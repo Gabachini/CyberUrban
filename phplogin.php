@@ -25,7 +25,7 @@
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        if (password_verify($password, $row['clave'])) {
+        if (password_verify($password, $row['Clave'])) {
             if ($result1->num_rows > 0) {
                 header("Location: InfoPersonalCl.php?cosa=$email");
             } elseif ($result2->num_rows > 0) {
