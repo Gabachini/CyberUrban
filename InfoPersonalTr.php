@@ -51,9 +51,8 @@
 								<li><button type="submit" name="InfoTreb" class="btn btn-primary" data-toggle="modal">Información personal</button></li>
 								<li><button type="submit" name="Inciden" class="btn btn-primary" data-toggle="modal">Incidencias</button></li>
 								<li><button type="submit" name="Serv" class="btn btn-primary" data-toggle="modal">Servicios</button></li>
-								<li><button type="submit" name="Resseny" class="btn btn-primary" data-toggle="modal">Reservas</button></li>
+								<li><button type="submit" name="Resseny" class="btn btn-primary" data-toggle="modal">Reseñas</button></li>
 								<li><button type="submit" name="Progr" class="btn btn-primary" data-toggle="modal">Programas</button></li>
-								<li><button type="submit" name="DepSerPro" class="btn btn-primary" data-toggle="modal">Reseñas</button></li>
 								<li><button type="submit" name="Logout" class="btn btn-primary" data-toggle="modal">Cerrar sesión</button></li>
 							</ul>
 						</form>
@@ -75,8 +74,6 @@
 				header("Location: InfoResenyesTr.php?cosa=$email");
 			} elseif (isset($_POST["Progr"])) {
 				header("Location: InfoProgrTr.php?cosa=$email");
-			} elseif (isset($_POST["DepSerPro"])) {
-				header("Location: InfoDepSerProg.php?cosa=$email");
 			} elseif (isset($_POST["Logout"])) {
 				header("Location: Index.html?cosa=$email");
 			}

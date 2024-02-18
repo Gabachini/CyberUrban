@@ -51,9 +51,8 @@
 								<li><button type="submit" name="InfoTreb" class="btn btn-primary" data-toggle="modal">Información personal</button></li>
 								<li><button type="submit" name="Inciden" class="btn btn-primary" data-toggle="modal">Incidencias</button></li>
 								<li><button type="submit" name="Serv" class="btn btn-primary" data-toggle="modal">Servicios</button></li>
-								<li><button type="submit" name="Resseny" class="btn btn-primary" data-toggle="modal">Reservas</button></li>
+								<li><button type="submit" name="Resseny" class="btn btn-primary" data-toggle="modal">Reseñas</button></li>
 								<li><button type="submit" name="Progr" class="btn btn-primary" data-toggle="modal">Programas</button></li>
-								<li><button type="submit" name="DepSerPro" class="btn btn-primary" data-toggle="modal">Reseñas</button></li>
 								<li><button type="submit" name="Logout" class="btn btn-primary" data-toggle="modal">Cerrar sesión</button></li>
 							</ul>
 						</form>
@@ -75,8 +74,6 @@
 				header("Location: InfoResenyesTr.php?cosa=$email");
 			} elseif (isset($_POST["Progr"])) {
 				header("Location: InfoProgrTr.php?cosa=$email");
-			} elseif (isset($_POST["DepSerPro"])) {
-				header("Location: InfoDepSerProg.php?cosa=$email");
 			} elseif (isset($_POST["Logout"])) {
 				header("Location: Index.html?cosa=$email");
 			}
@@ -112,39 +109,51 @@
 				die("Connection failed: " . $conn->connect_error);
 			}
 
-            $ObtenerIDTreb = "SELECT IDTreballador FROM treballadors WHERE Email = '$email'";
-    		$result2 = mysqli_query($conn,$ObtenerIDTreb);
-    		$IDTreb = mysqli_fetch_array($result2);
+            $ObtenerIDDep = "SELECT IDDepartament FROM treballadors WHERE Email = '$email'";
+    		$result2 = mysqli_query($conn,$ObtenerIDDep);
+    		$IDDep = mysqli_fetch_array($result2);
 
-			$sql = "SELECT * FROM incidencies where IDTreballador = $IDTreb[0]";
+			$sql = "SELECT IDClient, Nom, Direccio, NumTelefon, Email FROM clients where IDClient IN (SELECT IDClient FROM adquireixserv WHERE IDServei IN (SELECT IDServei FROM gestionatserv WHERE IDDepartament = $IDDep[0]))";
 			$result = $conn->query($sql);
+
+            $sql2 = "SELECT IDClient, Nom, Direccio, NumTelefon, Email FROM clients where IDClient IN (SELECT IDClient FROM adquireixserv WHERE IDServei IN (SELECT IDServei FROM gestionatserv WHERE IDDepartament = $IDDep[0]))";
+			$result3 = mysqli_query($conn,$sql2);
+            $IDClient = mysqli_fetch_array($result3);
+
+            $sql3 = "SELECT NomServei FROM serveis WHERE IDServei IN (SELECT IDServei FROM adquireixserv WHERE IDClient = $IDClient[0])";
+			$result4 = mysqli_query($conn,$sql3);
+            $ObNomServei = mysqli_fetch_array($result4);
 
 			if ($result->num_rows > 0) {
 				while ($row = $result->fetch_assoc()) {
 					echo "<table border='1' id='tabla' border='1'; width='520'>
 						<tr>
-							<th>Identificador de la incidencia</th></th>
-							<td>" . $row["IDIncidencia"] . "</td>
-						</tr>;
+							<th>Nombre del cliente</th></th>
+							<td>" . $row["Nom"] . "</td>
+						</tr>
 
 						<tr>
 							<th>Descripción</th>
-							<td>" . $row["Descripcio"] . "</td>
-						</tr>;
+							<td>" . $row["Direccio"] . "</td>
+						</tr>
 
 						<tr>
-							<th>Fecha de la incidencia</th>
-							<td>" . $row["DataIncidencia"] . "</td>
-						</tr>;
+							<th>Número de telefono</th>
+							<td>" . $row["NumTelefon"] . "</td>
+						</tr>
 
 						<tr>
-							<th>Estado</th>
-							<td>" . $row["Estat"] . "</td>
+							<th>Correo</th>
+							<td>
+                                <table border='1' id='tabla' border='1'; width='520'>
+                                    <tr> $ObNomServei[0] </tr>
+                                </table>
+                            </td>
 						</tr>";
 				}
 				echo "</table>";
 			} else {
-				echo "<p id='CentrarTextoTabla'>No se encontraron resultados.</p>";
+				echo "<p id='CentrarTextoTabla'>No disponible para su departamento.</p>";
 			}
 			$conn->close();
 		?>

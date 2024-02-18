@@ -51,9 +51,8 @@
 								<li><button type="submit" name="InfoTreb" class="btn btn-primary" data-toggle="modal">Información personal</button></li>
 								<li><button type="submit" name="Inciden" class="btn btn-primary" data-toggle="modal">Incidencias</button></li>
 								<li><button type="submit" name="Serv" class="btn btn-primary" data-toggle="modal">Servicios</button></li>
-								<li><button type="submit" name="Resseny" class="btn btn-primary" data-toggle="modal">Reservas</button></li>
+								<li><button type="submit" name="Resseny" class="btn btn-primary" data-toggle="modal">Reseñas</button></li>
 								<li><button type="submit" name="Progr" class="btn btn-primary" data-toggle="modal">Programas</button></li>
-								<li><button type="submit" name="DepSerPro" class="btn btn-primary" data-toggle="modal">Reseñas</button></li>
 								<li><button type="submit" name="Logout" class="btn btn-primary" data-toggle="modal">Cerrar sesión</button></li>
 							</ul>
 						</form>
@@ -75,8 +74,6 @@
 				header("Location: InfoResenyesTr.php?cosa=$email");
 			} elseif (isset($_POST["Progr"])) {
 				header("Location: InfoProgrTr.php?cosa=$email");
-			} elseif (isset($_POST["DepSerPro"])) {
-				header("Location: InfoDepSerProg.php?cosa=$email");
 			} elseif (isset($_POST["Logout"])) {
 				header("Location: Index.html?cosa=$email");
 			}
@@ -112,7 +109,7 @@
 				die("Connection failed: " . $conn->connect_error);
 			}
 
-            $ObtenerIDTreb = "SELECT IDTreballador FROM treballadors WHERE Email = '$email'";
+            $ObtenerIDTreb = "SELECT IDTreballador, NomTreballador FROM treballadors WHERE Email = '$email'";
     		$result2 = mysqli_query($conn,$ObtenerIDTreb);
     		$IDTreb = mysqli_fetch_array($result2);
 
@@ -164,7 +161,7 @@
 										<label for="exampleInputEmail1">Identificador</label>
 										<input type="text" class="form-control" name="InputIdent1" id="InputIdent1" aria-describedby="emailHelp" placeholder="Identificador" required>
 									</div>
-									<button name="ElimiIncid" type="submit" class="btn btn-primary">Cambiar</button>
+									<button name="ElimiIncid" type="submit" class="btn btn-primary">Finalizar</button>
 								</form>
 							</div>
 						</div>
@@ -243,7 +240,7 @@
 										<label for="exampleInputEmail1">Identificador</label>
 										<input type="text" class="form-control" name="InputIdent2" id="InputIdent2" aria-describedby="emailHelp" placeholder="Identificador" required>
 									</div>
-									<button name="AceptarInci" type="submit" class="btn btn-primary">Cambiar</button>
+									<button name="AceptarInci" type="submit" class="btn btn-primary">Aceptar</button>
 								</form>
 							</div>
 						</div>
