@@ -112,7 +112,7 @@
 				die("Connection failed: " . $conn->connect_error);
 			}
 
-            $ObtenerIDTreb = "SELECT IDTreballador, NomTreballador FROM treballadors WHERE Email = '$email'";
+            $ObtenerIDTreb = "SELECT IDTreballador FROM treballadors WHERE Email = '$email'";
     		$result2 = mysqli_query($conn,$ObtenerIDTreb);
     		$IDTreb = mysqli_fetch_array($result2);
 
@@ -140,19 +140,117 @@
 						<tr>
 							<th>Estado</th>
 							<td>" . $row["Estat"] . "</td>
-						</tr>
-
-                        <tr>
-							<th>Trabajador encargado</th>
-							<td> $IDTreb[1] </td>
 						</tr>";
 				}
 				echo "</table>";
 			} else {
-				echo "No se encontraron resultados.";
+				echo "<p id='CentrarTextoTabla'>No se encontraron resultados.</p>";
 			}
 			$conn->close();
 		?>
+
+        <div id="button1">
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal9">Finalizar incidencia</button>
+		</div>
+
+        <div class="modal fade" id="exampleModal9" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="column" id="main">
+								<form method="post" method="post" action="IncidenciaTr.php?cosa=<?php echo urlencode($email); ?>">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Identificador</label>
+										<input type="text" class="form-control" name="InputIdent1" id="InputIdent1" aria-describedby="emailHelp" placeholder="Identificador" required>
+									</div>
+									<button name="ElimiIncid" type="submit" class="btn btn-primary">Cambiar</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+        <div id="fh5co-core-feature">
+			<div class="container">
+				<div class="row">
+					<div class="features">
+						<div class="col-half animate-box" data-animate-effect="fadeInLeft">
+							<div class="desc">
+								<h3>Incidencias sin adquirir</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<?php
+			$DATABASE_HOST = 'localhost';
+			$DATABASE_USER = 'root';
+			$DATABASE_PASS = '';
+			$DATABASE_NAME = 'cyberurban';
+			$email = $_GET['cosa'];
+		
+			$conn = new mysqli($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+		
+			if ($conn->connect_error) {
+				die("Connection failed: " . $conn->connect_error);
+			}
+
+			$sql = "SELECT * FROM incidencies WHERE Estat = 'Sin aceptar'";
+			$result = $conn->query($sql);
+
+			if ($result->num_rows > 0) {
+				while ($row = $result->fetch_assoc()) {
+					echo "<table border='1' id='tabla' border='1'; width='520'>
+						<tr>
+							<th>Identificador de la incidencia</th></th>
+							<td>" . $row["IDIncidencia"] . "</td>
+						</tr>;
+
+						<tr>
+							<th>Descripción</th>
+							<td>" . $row["Descripcio"] . "</td>
+						</tr>;
+
+						<tr>
+							<th>Fecha de la incidencia</th>
+							<td>" . $row["DataIncidencia"] . "</td>
+						</tr>";
+				}
+				echo "</table>";
+			} else {
+				echo "<p id='CentrarTextoTabla'>No se encontraron resultados.</p>";
+			}
+			$conn->close();
+		?>
+
+        <div id="button1">
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal10">Aceptar incidencia</button>
+		</div>
+
+        <div class="modal fade" id="exampleModal10" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="column" id="main">
+								<form method="post" method="post" action="IncidenciaTr.php?cosa=<?php echo urlencode($email); ?>">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Identificador</label>
+										<input type="text" class="form-control" name="InputIdent2" id="InputIdent2" aria-describedby="emailHelp" placeholder="Identificador" required>
+									</div>
+									<button name="AceptarInci" type="submit" class="btn btn-primary">Cambiar</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</body>
 
 	<footer id="fh5co-core-feature" role="contentinfo">
