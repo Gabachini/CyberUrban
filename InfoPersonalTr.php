@@ -161,14 +161,10 @@
 					<div class="modal-content">
 						<div class="modal-body">
 							<div class="column" id="main">
-								<form method="post" method="post" action="PersonalCl.php?cosa=<?php echo urlencode($email); ?>">
+								<form method="post" method="post" action="PersonaTr.php?cosa=<?php echo urlencode($email); ?>">
 									<div class="form-group">
 										<label for="exampleInputEmail1">Nombre</label>
 										<input type="text" class="form-control" name="InputName1" id="InputName1" aria-describedby="emailHelp" placeholder="Nombre">
-									</div>
-									<div class="form-group">
-										<label for="exampleInputEmail1">Dirección</label>
-										<input type="text" class="form-control" name="InputPath1" id="InputPath1" aria-describedby="emailHelp" placeholder="Dirección">
 									</div>
 									<div class="form-group">
 										<label for="exampleInputEmail1">Número de télefono</label>
