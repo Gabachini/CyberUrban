@@ -109,7 +109,7 @@
 			$result = mysqli_query($conn,$ObtenerID);
 			$IDClient = mysqli_fetch_array($result);
 
-			$sql = "SELECT IDServei, NomServei, Descripcio, Preu FROM serveis where IDServei = (SELECT IDServei FROM adquireixserv WHERE IDClient = $IDClient[0])";
+			$sql = "SELECT IDServei, NomServei, Descripcio, Preu FROM serveis WHERE IDServei = (SELECT IDServei FROM adquireixserv WHERE IDClient = $IDClient[0])";
 			$result = $conn->query($sql);
 
 			if ($result->num_rows > 0) {
@@ -169,7 +169,11 @@
 				die("Connection failed: " . $conn->connect_error);
 			}
 
-			$sql = "SELECT IDServei, NomServei, Descripcio, Preu FROM serveis";
+			$ObtenerID = "SELECT IDClient FROM clients WHERE Email = '$email'";
+			$result = mysqli_query($conn,$ObtenerID);
+			$IDClient = mysqli_fetch_array($result);
+
+			$sql = "SELECT IDServei, NomServei, Descripcio, Preu FROM serveis WHERE IDServei != (SELECT IDServei FROM adquireixserv WHERE IDClient = $IDClient[0])";
 			$result = $conn->query($sql);
 
 			if ($result->num_rows > 0) {

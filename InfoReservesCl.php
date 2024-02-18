@@ -115,35 +115,20 @@
 			$result = mysqli_query($conn,$ObtenerID);
 			$IDClient = mysqli_fetch_array($result);
 
-			$sql = "SELECT IDServei, NomServei, Descripcio, Preu FROM serveis where IDServei = (SELECT IDServei FROM adquireixserv WHERE IDClient = $IDClient[0])";
+			$sql = "SELECT DataReserva FROM reserves where IDClient = (SELECT IDClient FROM clients WHERE IDClient = $IDClient[0])";
 			$result = $conn->query($sql);
 
 			if ($result->num_rows > 0) {
 				while ($row = $result->fetch_assoc()) {
 					echo "<table border='1' id='tabla' border='1'; width='520'>
 						<tr>
-							<th>Identificador</th>
-							<td>" . $row["IDServei"] . "</td>
-						</tr>;
-
-						<tr>
-							<th>Servicio</th>
-							<td>" . $row["NomServei"] . "</td>
-						</tr>;
-
-						<tr>
-							<th>Descripción</th>
-							<td>" . $row["Descripcio"] . "</td>
-						</tr>;
-
-						<tr>
 							<th>Precio</th>
-							<td>" . $row["Preu"] . "</td>
+							<td>" . $row["DataReserva"] . "</td>
 						</tr>";
 				}
 				echo "</table>";
 			} else {
-				echo "<p id='CentrarTextoTabla'>No hay servicios encontrados.</p>";
+				echo "<p id='CentrarTextoTabla'>No hay reservas encontrados.</p>";
 			}
 			$conn->close();
 		?>
