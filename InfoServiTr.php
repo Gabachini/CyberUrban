@@ -111,7 +111,7 @@
 
             $ObtenerIDDep = "SELECT IDDepartament FROM treballadors WHERE Email = '$email'";
     		$result2 = mysqli_query($conn,$ObtenerIDDep);
-    		$IDDep = mysqli_fetch_array($result2);
+    		$IDDep = mysqli_fetch_array($result2);;
 
 			$sql = "SELECT IDClient, Nom, Direccio, NumTelefon, Email FROM clients where IDClient IN (SELECT IDClient FROM adquireixserv WHERE IDServei IN (SELECT IDServei FROM gestionatserv WHERE IDDepartament = $IDDep[0]))";
 			$result = $conn->query($sql);
@@ -120,9 +120,11 @@
 			$result3 = mysqli_query($conn,$sql2);
             $IDClient = mysqli_fetch_array($result3);
 
-            $sql3 = "SELECT NomServei FROM serveis WHERE IDServei IN (SELECT IDServei FROM adquireixserv WHERE IDClient = $IDClient[0])";
-			$result4 = mysqli_query($conn,$sql3);
-            $ObNomServei = mysqli_fetch_array($result4);
+			if ($IDClient[0] > 0) {
+				$sql3 = "SELECT NomServei FROM serveis WHERE IDServei IN (SELECT IDServei FROM adquireixserv WHERE IDClient = $IDClient[0])";
+				$result4 = mysqli_query($conn,$sql3);
+            	$ObNomServei = mysqli_fetch_array($result4);
+			}
 
 			if ($result->num_rows > 0) {
 				while ($row = $result->fetch_assoc()) {

@@ -120,9 +120,11 @@
 			$result3 = mysqli_query($conn,$sql2);
             $IDClient = mysqli_fetch_array($result3);
 
-			$sql3 = "SELECT NomPrograma FROM programes WHERE IDPrograma IN (SELECT IDPrograma FROM adquireixprog WHERE IDClient = $IDClient[0])";
-			$result4 = mysqli_query($conn,$sql3);
-            $ObNomServei = mysqli_fetch_array($result4);
+			if ($IDClient[0] > 0) {
+				$sql3 = "SELECT NomPrograma FROM programes WHERE IDPrograma IN (SELECT IDPrograma FROM adquireixprog WHERE IDClient = $IDClient[0])";
+				$result4 = mysqli_query($conn,$sql3);
+				$ObNomServei = mysqli_fetch_array($result4);
+			}
 
 			if ($result->num_rows > 0) {
 				while ($row = $result->fetch_assoc()) {
