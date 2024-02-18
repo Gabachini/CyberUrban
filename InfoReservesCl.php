@@ -90,7 +90,7 @@
 					<div class="features">
 						<div class="col-half animate-box" data-animate-effect="fadeInLeft">
 							<div class="desc">
-								<h3>Reservas disponibles</h3>
+								<h3>Días no disponibles</h3>
 							</div>
 						</div>
 					</div>
@@ -115,14 +115,14 @@
 			$result = mysqli_query($conn,$ObtenerID);
 			$IDClient = mysqli_fetch_array($result);
 
-			$sql = "SELECT DataReserva FROM reserves where IDClient = (SELECT IDClient FROM clients WHERE IDClient = $IDClient[0])";
+			$sql = "SELECT DataReserva FROM reserves";
 			$result = $conn->query($sql);
 
 			if ($result->num_rows > 0) {
 				while ($row = $result->fetch_assoc()) {
 					echo "<table border='1' id='tabla' border='1'; width='520'>
 						<tr>
-							<th>Precio</th>
+							<th>Dia</th>
 							<td>" . $row["DataReserva"] . "</td>
 						</tr>";
 				}
@@ -132,6 +132,104 @@
 			}
 			$conn->close();
 		?>
+
+		<div id="fh5co-core-feature">
+			<div class="container">
+				<div class="row">
+					<div class="features">
+						<div class="col-half animate-box" data-animate-effect="fadeInLeft">
+							<div class="desc">
+								<h3>Reservas propias</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<?php
+			$DATABASE_HOST = 'localhost';
+			$DATABASE_USER = 'root';
+			$DATABASE_PASS = '';
+			$DATABASE_NAME = 'cyberurban';
+			$email = $_GET['cosa'];
+		
+			$conn = new mysqli($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+		
+			if ($conn->connect_error) {
+				die("Connection failed: " . $conn->connect_error);
+			}
+
+			$ObtenerID = "SELECT IDClient FROM clients WHERE Email = '$email'";
+			$result = mysqli_query($conn,$ObtenerID);
+			$IDClient = mysqli_fetch_array($result);
+
+			$sql = "SELECT IDReserva ,DataReserva FROM reserves where IDClient = (SELECT IDClient FROM clients WHERE IDClient = $IDClient[0])";
+			$result = $conn->query($sql);
+
+			if ($result->num_rows > 0) {
+				while ($row = $result->fetch_assoc()) {
+					echo "<table border='1' id='tabla' border='1'; width='520'>
+						<tr>
+							<th>Identificador</th>
+							<td>" . $row["IDReserva"] . "</td>
+						</tr>
+						<tr>
+							<th>Fecha</th>
+							<td>" . $row["DataReserva"] . "</td>
+						</tr>";
+				}
+				echo "</table>";
+			} else {
+				echo "<p id='CentrarTextoTabla'>No hay reservas encontrados.</p>";
+			}
+			$conn->close();
+		?>
+
+		<div id="button1">
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal5">Hacer reserva</button>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal6">Cancelar reserva</button>
+		</div>
+
+		<div class="modal fade" id="exampleModal5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="column" id="main">
+								<form method="post" method="post" action="ReservaCl.php?cosa=<?php echo urlencode($email); ?>">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Fecha</label>
+										<input type="date" class="form-control" name="InputDate1" id="InputDate1" aria-describedby="emailHelp" placeholder="Fecha">
+									</div>
+									<button name="AnyaHacRes" type="submit" class="btn btn-primary">Hacer reserva</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="exampleModal6" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="column" id="main">
+								<form method="post" method="post" action="ReservaCl.php?cosa=<?php echo urlencode($email); ?>">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Identificador</label>
+										<input type="text" class="form-control" name="InputDate2" id="InputDate2" aria-describedby="emailHelp" placeholder="Identificador">
+									</div>
+									<button name="AnyaCanRes" type="submit" class="btn btn-primary">Cancelar reserva</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</body>
 
 	<footer id="fh5co-core-feature" role="contentinfo">
