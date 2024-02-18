@@ -13,9 +13,6 @@
     $email = isset($_POST['EmailLogin']) ? $_POST['EmailLogin'] : '';
     $password = isset($_POST['PasswordLogin']) ? $_POST['PasswordLogin'] : '';
 
-    $sql = "SELECT * FROM clients WHERE Email = '$email'";
-    $result = $conn->query($sql);
-
     $sql1 = "SELECT * FROM clients WHERE Email = '$email'";
     $result1 = $conn->query($sql1);
     $sql2 = "SELECT * FROM treballadors WHERE Email = '$email'";
@@ -23,18 +20,29 @@
     $sql3 = "SELECT * FROM administradors WHERE user = '$email'";
     $result3 = $conn->query($sql3);
 
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        if (password_verify($password, $row['Clave'])) {
-            if ($result1->num_rows > 0) {
+    if ($result1->num_rows > 0 || $result2->num_rows > 0 || $result3->num_rows > 0) {
+        $row1 = $result1->fetch_assoc();
+        $row2 = $result2->fetch_assoc();
+        $row3 = $result3->fetch_assoc();
+
+        if ($result1->num_rows > 0) {
+            if (password_verify($password, $row1['Clave'])) {
                 header("Location: InfoPersonalCl.php?cosa=$email");
-            } elseif ($result2->num_rows > 0) {
+            } else {
+                echo 'La contraseña no es válida.';
+            }
+        } elseif ($result2->num_rows > 0) {
+            if (password_verify($password, $row2['Clave'])) {
                 header("Location: InfoPersonalTr.php?cosa=$email");
             } else {
-                header("Location: InfoProgrAdm.php?cosa=$email");
+                echo 'La contraseña no es válida.';
             }
-        } else {
-            echo 'La contraseña no es válida.';
+        } elseif ($result3->num_rows > 0) {
+            if (password_verify($password, $row3['Clave'])) {
+                header("Location: InfoProgrAdm.php?cosa=$email");
+            } else {
+                echo 'La contraseña no es válida.';
+            }
         }
     } else {
         echo "0 results";

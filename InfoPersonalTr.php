@@ -37,95 +37,159 @@
 	</head>
 
 	<body>
-    <div class="fh5co-loader"></div>
+		<div class="fh5co-loader"></div>
 		<div id="page">
 		<nav class="fh5co-nav" role="navigation">
 			<div class="container">
-				<div class="row">
+				<div class="row">	
 					<div class="col-xs-2">
-						<div id="fh5co-logo"><a href="InfoPersonalTr.php">CyberUrban</a></div>
+						<div id="fh5co-logo">CyberUrban</div>
 					</div>
 					<div class="col-xs-10 text-right menu-1">
-						<ul>
-							<li class="active"><a href="index.html">InfoPersonalTr</a></li>
-							<li><a href="about.html">InfoIncidenTr</a></li>
-							<li><a href="services.html">InfoDepSerProg</a></li>
-							<li><a href="programas.html">InfoProgrTr</a></li>
-							<li><a href="work.html">InfoResenyesTr</a></li>
-							<li><a href="contact.html">InfoServiTr</a></li>
-							<li><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1">Login</button></li>
-						</ul>
+						<form method="post">
+							<ul>
+								<li><button type="submit" name="InfoTreb" class="btn btn-primary" data-toggle="modal">Información personal</button></li>
+								<li><button type="submit" name="Inciden" class="btn btn-primary" data-toggle="modal">Incidencias</button></li>
+								<li><button type="submit" name="Serv" class="btn btn-primary" data-toggle="modal">Servicios</button></li>
+								<li><button type="submit" name="Resseny" class="btn btn-primary" data-toggle="modal">Reservas</button></li>
+								<li><button type="submit" name="Progr" class="btn btn-primary" data-toggle="modal">Programas</button></li>
+								<li><button type="submit" name="DepSerPro" class="btn btn-primary" data-toggle="modal">Reseñas</button></li>
+								<li><button type="submit" name="Logout" class="btn btn-primary" data-toggle="modal">Cerrar sesión</button></li>
+							</ul>
+						</form>
 					</div>
 				</div>
 			</div>
 		</nav>
 
+		<?php
+			$email = $_GET['cosa'];
+
+			if (isset($_POST["InfoTreb"])) {
+				header("Location: InfoPersonalTr.php?cosa=$email");
+			} elseif (isset($_POST["Inciden"])) {
+				header("Location: InfoIncidenTr.php?cosa=$email");
+			} elseif (isset($_POST["Serv"])) {
+				header("Location: InfoServiTr.php?cosa=$email");
+			} elseif (isset($_POST["Resseny"])) {
+				header("Location: InfoResenyesTr.php?cosa=$email");
+			} elseif (isset($_POST["Progr"])) {
+				header("Location: InfoProgrTr.php?cosa=$email");
+			} elseif (isset($_POST["DepSerPro"])) {
+				header("Location: InfoDepSerProg.php?cosa=$email");
+			} elseif (isset($_POST["Logout"])) {
+				header("Location: Index.html?cosa=$email");
+			}
+		?>
+
 		<header id="fh5co-header" class="fh5co-cover fh5co-cover-sm-2" role="banner" style="background-image:url(images/Img1.jpeg);">
-			<div class="overlay"></div>
+		</header>
+
+		<div id="fh5co-core-feature">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-8 col-md-offset-2 text-center">
-						<div class="display-t">
-							<div class="display-tc animate-box" data-animate-effect="fadeIn">
-								<h1>CyberUrban</h1>
-								<h2>Empresa de ciberseguridad Española</h2>
+					<div class="features">
+						<div class="col-half animate-box" data-animate-effect="fadeInLeft">
+							<div class="desc">
+								<h3>Información personal</h3>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</header>
-        <?php
-        // Configuración de la base de datos
-                $host = "localhost";
-                $usuario = "root";
-                $contrasena = "";
-                $base_datos = "cyberurban";
-                // Definir la variable email
-                $email = isset($_GET['EmailLogin']) ? $_GET['EmailLogin'] : '';
-                // Conexión a la base de datos
-                $conexion = new mysqli($host, $usuario, $contrasena, $base_datos);
+		</div>
 
-                // Verificar la conexión
-                if ($conexion->connect_error) {
-                    die("Error de conexión a la base de datos: " . $conexion->connect_error);
-                }
+		<?php
+			$DATABASE_HOST = 'localhost';
+			$DATABASE_USER = 'root';
+			$DATABASE_PASS = '';
+			$DATABASE_NAME = 'cyberurban';
+			$email = $_GET['cosa'];
+		
+			$conn = new mysqli($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+		
+			if ($conn->connect_error) {
+				die("Connection failed: " . $conn->connect_error);
+			}
 
-                // Prevenir inyección SQL
-                $email = $conexion->real_escape_string($email);
+			$sql = "SELECT * FROM treballadors where Email = '$email'";
+			$result = $conn->query($sql);
 
-                // Consulta SQL para obtener la información del trabajador con el correo electrónico proporcionado
-                $sql = "SELECT * FROM treballadors WHERE Email = '$email' ";
-                $result = $conexion->query($sql);
-				
-                // Verificar si se obtuvieron resultados
-                if ($result->num_rows > 0) {
-                    // Imprimir la tabla
-                    echo "<table border='1'>
-                            <tr>
-                                <th>NomTreballador</th>
-                                <th>Email</th>
-                                <th>Número de teléfono</th>
-                                <!-- Agrega más columnas según tu esquema de base de datos -->
-                            </tr>";
+			$ObtenerID = "SELECT NomDepartament FROM departaments WHERE IDDepartament = (SELECT IDDepartament FROM treballadors WHERE Email = '$email')";
+    		$result2 = mysqli_query($conn,$ObtenerID);
+    		$IDClient = mysqli_fetch_array($result2);
 
-                    // Imprimir datos de cada fila
-                    while ($row = $result->fetch_assoc()) {
-                        echo "<tr>
-                                <td>" . $row["NomTreballador"] . "</td>
-                                <td>" . $row["Email"] . "</td>
-                                <td>" . $row["Telefon"] . "</td>
-                                <!-- Agrega más celdas según tu esquema de base de datos -->
-                            </tr>";
-                    }
-                    echo "</table>";
-                } else {
-                    echo "No se encontraron resultados.";
-                }
+			if ($result->num_rows > 0) {
+				while ($row = $result->fetch_assoc()) {
+					echo "<table border='1' id='tabla' border='1'; width='520'>
+						<tr>
+							<th>Nombre</th></th>
+							<td>" . $row["NomTreballador"] . "</td>
+						</tr>;
 
-                // Cerrar la conexión a la base de datos
-                $conexion->close();
-        ?>
+						<tr>
+							<th>Correo</th>
+							<td>" . $row["Email"] . "</td>
+						</tr>;
+
+						<tr>
+							<th>Número de teléfono</th>
+							<td>" . $row["Telefon"] . "</td>
+						</tr>;
+
+						<tr>
+							<th>Departamento</th>
+							<td> $IDClient[0] </td>
+						</tr>";
+				}
+				echo "</table>";
+			} else {
+				echo "No se encontraron resultados.";
+			}
+			$conn->close();
+		?>
+
+		<br>
+
+		<div id="button1">
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1">Cambiar datos</button>
+		</div>
+
+		<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="column" id="main">
+								<form method="post" method="post" action="PersonalCl.php?cosa=<?php echo urlencode($email); ?>">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Nombre</label>
+										<input type="text" class="form-control" name="InputName1" id="InputName1" aria-describedby="emailHelp" placeholder="Nombre">
+									</div>
+									<div class="form-group">
+										<label for="exampleInputEmail1">Dirección</label>
+										<input type="text" class="form-control" name="InputPath1" id="InputPath1" aria-describedby="emailHelp" placeholder="Dirección">
+									</div>
+									<div class="form-group">
+										<label for="exampleInputEmail1">Número de télefono</label>
+										<input type="text" class="form-control" name="InputNumbre1" id="InputNumbre1" aria-describedby="emailHelp" placeholder="télefono">
+									</div>
+									<div class="form-group">
+										<label for="exampleInputEmail1">Correo electrónico</label>
+										<input type="email" class="form-control" name="InputEmail1" id="InputEmail1" aria-describedby="emailHelp" placeholder="Correo">
+									</div>
+									<div class="form-group">
+										<label for="exampleInputPassword1">Clave</label>
+										<input type="password" class="form-control" name="InputPassword1" id="InputPassword1" placeholder="Contraseña">
+									</div>
+									<button type="submit" class="btn btn-primary">Cambiar</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</body>
 
 	<footer id="fh5co-core-feature" role="contentinfo">
