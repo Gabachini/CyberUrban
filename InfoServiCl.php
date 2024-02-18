@@ -109,16 +109,22 @@
 			$result = mysqli_query($conn,$ObtenerID);
 			$IDClient = mysqli_fetch_array($result);
 
-			$sql = "SELECT NomServei, Descripcio, Preu FROM serveis where IDServei = (SELECT IDServei FROM adquireixserv WHERE IDClient = $IDClient[0])";
+			$sql = "SELECT IDServei, NomServei, Descripcio, Preu FROM serveis where IDServei = (SELECT IDServei FROM adquireixserv WHERE IDClient = $IDClient[0])";
 			$result = $conn->query($sql);
 
 			if ($result->num_rows > 0) {
 				while ($row = $result->fetch_assoc()) {
 					echo "<table border='1' id='tabla' border='1'; width='520'>
 						<tr>
+							<th>Identificador</th>
+							<td>" . $row["IDServei"] . "</td>
+						</tr>;
+
+						<tr>
 							<th>Servicio</th>
 							<td>" . $row["NomServei"] . "</td>
 						</tr>;
+
 						<tr>
 							<th>Descripción</th>
 							<td>" . $row["Descripcio"] . "</td>
@@ -208,12 +214,12 @@
 					<div class="modal-content">
 						<div class="modal-body">
 							<div class="column" id="main">
-								<form method="post" action="IncidenciaCl.php?cosa=<?php echo urlencode($email); ?>">
+								<form method="post" action="ServicioCl.php?cosa=<?php echo urlencode($email); ?>">
 									<div class="form-group">
-										<label for="exampleInputEmail1">Descripción</label>
-										<input type="text" class="form-control" name="InputDescr2" id="InputDescr2" aria-describedby="emailHelp" placeholder="Descripción" required>
+										<label for="exampleInputEmail1">Identificador del servicio</label>
+										<input type="text" class="form-control" name="InputIdenti1" id="InputIdenti1" aria-describedby="emailHelp" placeholder="Identificador del servicio" required>
 									</div>
-									<button name="AnyaIncid" type="submit" class="btn btn-primary">Crear</button>
+									<button name="ButtonServi1" type="submit" class="btn btn-primary">Contratar</button>
 								</form>
 							</div>
 						</div>
@@ -228,12 +234,12 @@
 					<div class="modal-content">
 						<div class="modal-body">
 							<div class="column" id="main">
-								<form method="post" action="IncidenciaCl.php?cosa=<?php echo urlencode($email); ?>">
+								<form method="post" action="ServicioCl.php?cosa=<?php echo urlencode($email); ?>">
 									<div class="form-group">
-										<label for="exampleInputEmail1">Descripción</label>
-										<input type="text" class="form-control" name="InputDescr2" id="InputDescr2" aria-describedby="emailHelp" placeholder="Descripción" required>
+										<label for="exampleInputEmail1">Identificador del servicio</label>
+										<input type="text" class="form-control" name="InputIdenti2" id="InputIdenti2" aria-describedby="emailHelp" placeholder="Identificador del servicio" required>
 									</div>
-									<button name="AnyaIncid" type="submit" class="btn btn-primary">Crear</button>
+									<button name="ButtonServi2" type="submit" class="btn btn-primary">Descontratar</button>
 								</form>
 							</div>
 						</div>
