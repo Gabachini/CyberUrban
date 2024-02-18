@@ -105,7 +105,11 @@
 				die("Connection failed: " . $conn->connect_error);
 			}
 
-			$sql = "SELECT NomServei, Descripcio, Preu FROM serveis";
+			$ObtenerID = "SELECT IDClient FROM clients WHERE Email = '$email'";
+			$result = mysqli_query($conn,$ObtenerID);
+			$IDClient = mysqli_fetch_array($result);
+
+			$sql = "SELECT NomServei, Descripcio, Preu FROM serveis where IDServei = (SELECT IDServei FROM adquireixserv WHERE IDClient = $IDClient[0])";
 			$result = $conn->query($sql);
 
 			if ($result->num_rows > 0) {
@@ -127,17 +131,10 @@
 				}
 				echo "</table>";
 			} else {
-				echo "<p id='CentrarTextoTabla'>Ho hay incidencias encontradas.</p>";
+				echo "<p id='CentrarTextoTabla'>No hay servicios encontrados.</p>";
 			}
 			$conn->close();
 		?>
-
-		<br>
-
-		<div id="button1">
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1">Incidencia</button>
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2">Añadir incidencia</button>
-		</div>
 
 		<div id="fh5co-core-feature">
 			<div class="container">
@@ -166,12 +163,17 @@
 				die("Connection failed: " . $conn->connect_error);
 			}
 
-			$sql = "SELECT NomServei, Descripcio, Preu FROM serveis";
+			$sql = "SELECT IDServei, NomServei, Descripcio, Preu FROM serveis";
 			$result = $conn->query($sql);
 
 			if ($result->num_rows > 0) {
 				while ($row = $result->fetch_assoc()) {
 					echo "<table border='1' id='tabla' border='1'; width='520'>
+						<tr>
+							<th>Identificador</th>
+							<td>" . $row["IDServei"] . "</td>
+						</tr>;
+					
 						<tr>
 							<th>Servicio</th>
 							<td>" . $row["NomServei"] . "</td>
@@ -196,7 +198,48 @@
 		<br>
 
 		<div id="button1">
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1">Contratar servicio</button>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal3">Contratar servicios</button>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal4">Descontratar servicios</button>
+		</div>
+
+		<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="column" id="main">
+								<form method="post" action="IncidenciaCl.php?cosa=<?php echo urlencode($email); ?>">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Descripción</label>
+										<input type="text" class="form-control" name="InputDescr2" id="InputDescr2" aria-describedby="emailHelp" placeholder="Descripción" required>
+									</div>
+									<button name="AnyaIncid" type="submit" class="btn btn-primary">Crear</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="exampleModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="column" id="main">
+								<form method="post" action="IncidenciaCl.php?cosa=<?php echo urlencode($email); ?>">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Descripción</label>
+										<input type="text" class="form-control" name="InputDescr2" id="InputDescr2" aria-describedby="emailHelp" placeholder="Descripción" required>
+									</div>
+									<button name="AnyaIncid" type="submit" class="btn btn-primary">Crear</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 
