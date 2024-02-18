@@ -124,8 +124,6 @@
 			$result4 = mysqli_query($conn,$sql3);
             $ObNomServei = mysqli_fetch_array($result4);
 
-			echo $IDClient[0];
-
 			if ($result->num_rows > 0) {
 				while ($row = $result->fetch_assoc()) {
 					echo "<table border='1' id='tabla' border='1'; width='520'>
