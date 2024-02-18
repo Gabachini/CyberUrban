@@ -28,15 +28,211 @@
 		<link rel="stylesheet" href="css/bootstrap.css">
 		<!-- Theme style  -->
 		<link rel="stylesheet" href="css/style.css">
-
-		<!-- Modernizr JS -->
-		<!-- FOR IE9 below -->
-		<!--[if lt IE 9]>
-		<script src="js/respond.min.js"></script>
-		<![endif]-->
 	</head>
 
 	<body>
+		<div class="fh5co-loader"></div>
+		<div id="page">
+		<div class="fh5co-loader"></div>
+		<div id="page">
+		<nav class="fh5co-nav" role="navigation">
+			<div class="container">
+				<div class="row">	
+					<div class="col-xs-2">
+						<div id="fh5co-logo">CyberUrban</div>
+					</div>
+					<div class="col-xs-10 text-right menu-1">
+						<form method="post">
+							<ul>
+								<li><button type="submit" name="InfoPers" class="btn btn-primary" data-toggle="modal">Información personal</button></li>
+								<li><button type="submit" name="Inciden" class="btn btn-primary" data-toggle="modal">Incidencias</button></li>
+								<li><button type="submit" name="Serv" class="btn btn-primary" data-toggle="modal">Servicios</button></li>
+								<li><button type="submit" name="Reserv" class="btn btn-primary" data-toggle="modal">Reservas</button></li>
+								<li><button type="submit" name="Progr" class="btn btn-primary" data-toggle="modal">Programas</button></li>
+								<li><button type="submit" name="Reseny" class="btn btn-primary" data-toggle="modal">Reseñas</button></li>
+								<li><button type="submit" name="Logout" class="btn btn-primary" data-toggle="modal">Cerrar sesión</button></li>
+							</ul>
+						</form>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+		<?php
+			$email = $_GET['cosa'];
+
+			if (isset($_POST["InfoPers"])) {
+				header("Location: InfoPersonalCl.php?cosa=$email");
+			} elseif (isset($_POST["Inciden"])) {
+				header("Location: InfoIncidenCl.php?cosa=$email");
+			} elseif (isset($_POST["Serv"])) {
+				header("Location: InfoServiCl.php?cosa=$email");
+			} elseif (isset($_POST["Reserv"])) {
+				header("Location: InfoReservesCl.php?cosa=$email");
+			} elseif (isset($_POST["Progr"])) {
+				header("Location: InfoProgrCl.php?cosa=$email");
+			} elseif (isset($_POST["Reseny"])) {
+				header("Location: InfoResenyesCl.php?cosa=$email");
+			} elseif (isset($_POST["Logout"])) {
+				header("Location: Index.html?cosa=$email");
+			}
+		?>
+
+		<header id="fh5co-header" class="fh5co-cover fh5co-cover-sm-2" role="banner" style="background-image:url(images/Img1.jpeg);">
+		</header>
+
+		<div id="fh5co-core-feature">
+			<div class="container">
+				<div class="row">
+					<div class="features">
+						<div class="col-half animate-box" data-animate-effect="fadeInLeft">
+							<div class="desc">
+								<h3>Programas adquiridos</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<?php
+			$DATABASE_HOST = 'localhost';
+			$DATABASE_USER = 'root';
+			$DATABASE_PASS = '';
+			$DATABASE_NAME = 'cyberurban';
+			$email = $_GET['cosa'];
+		
+			$conn = new mysqli($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+		
+			if ($conn->connect_error) {
+				die("Connection failed: " . $conn->connect_error);
+			}
+
+			$ObtenerID = "SELECT IDClient FROM clients WHERE Email = '$email'";
+			$result = mysqli_query($conn,$ObtenerID);
+			$IDClient = mysqli_fetch_array($result);
+
+			$sql = "SELECT IDPrograma, NomPrograma, Descripcio, Preu FROM programes WHERE IDPrograma IN (SELECT IDPrograma FROM adquireixprog WHERE IDClient = $IDClient[0])";
+			$result = $conn->query($sql);
+
+			if ($result->num_rows > 0) {
+				while ($row = $result->fetch_assoc()) {
+					echo "<table border='1' id='tabla' border='1'; width='520'>
+						<tr>
+							<th>Identificador</th>
+							<td>" . $row["IDPrograma"] . "</td>
+						</tr>;
+
+						<tr>
+							<th>Servicio</th>
+							<td>" . $row["NomPrograma"] . "</td>
+						</tr>;
+
+						<tr>
+							<th>Descripción</th>
+							<td>" . $row["Descripcio"] . "</td>
+						</tr>;
+
+						<tr>
+							<th>Precio</th>
+							<td>" . $row["Preu"] . "</td>
+						</tr>";
+				}
+				echo "</table>";
+			} else {
+				echo "<p id='CentrarTextoTabla'>No hay programas adquiridos.</p>";
+			}
+			$conn->close();
+		?>
+
+		<div id="fh5co-core-feature">
+			<div class="container">
+				<div class="row">
+					<div class="features">
+						<div class="col-half animate-box" data-animate-effect="fadeInLeft">
+							<div class="desc">
+								<h3>Programas disponibles</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<?php
+			$DATABASE_HOST = 'localhost';
+			$DATABASE_USER = 'root';
+			$DATABASE_PASS = '';
+			$DATABASE_NAME = 'cyberurban';
+			$email = $_GET['cosa'];
+		
+			$conn = new mysqli($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+		
+			if ($conn->connect_error) {
+				die("Connection failed: " . $conn->connect_error);
+			}
+
+			$ObtenerID = "SELECT IDClient FROM clients WHERE Email = '$email'";
+			$result = mysqli_query($conn,$ObtenerID);
+			$IDClient = mysqli_fetch_array($result);
+
+			$sql = "SELECT IDPrograma, NomPrograma, Descripcio, Preu FROM programes WHERE IDPrograma NOT IN (SELECT IDPrograma FROM adquireixprog WHERE IDClient = $IDClient[0])";
+			$result = $conn->query($sql);
+
+			if ($result->num_rows > 0) {
+				while ($row = $result->fetch_assoc()) {
+					echo "<table border='1' id='tabla' border='1'; width='520'>
+						<tr>
+							<th>Identificador</th>
+							<td>" . $row["IDPrograma"] . "</td>
+						</tr>;
+					
+						<tr>
+							<th>Servicio</th>
+							<td>" . $row["NomPrograma"] . "</td>
+						</tr>;
+						<tr>
+							<th>Descripción</th>
+							<td>" . $row["Descripcio"] . "</td>
+						</tr>;
+
+						<tr>
+							<th>Precio</th>
+							<td>" . $row["Preu"] . "</td>
+						</tr>";
+				}
+				echo "</table>";
+			} else {
+				echo "<p id='CentrarTextoTabla'>Ho hay incidencias encontradas.</p>";
+			}
+			$conn->close();
+		?>
+
+		<br>
+
+		<div id="button1">
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal7">Adquirir programa</button>
+		</div>
+
+		<div class="modal fade" id="exampleModal7" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="column" id="main">
+								<form method="post" action="ProgramasCl.php?cosa=<?php echo urlencode($email); ?>">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Identificador del programa</label>
+										<input type="text" class="form-control" name="InputIdenti1" id="InputIdenti1" aria-describedby="emailHelp" placeholder="Identificador del programa" required>
+									</div>
+									<button name="ButtonServi1" type="submit" class="btn btn-primary">Contratar</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</body>
 
 	<footer id="fh5co-core-feature" role="contentinfo">

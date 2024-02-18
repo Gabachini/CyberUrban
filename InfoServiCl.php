@@ -50,6 +50,7 @@
 								<li><button type="submit" name="Reserv" class="btn btn-primary" data-toggle="modal">Reservas</button></li>
 								<li><button type="submit" name="Progr" class="btn btn-primary" data-toggle="modal">Programas</button></li>
 								<li><button type="submit" name="Reseny" class="btn btn-primary" data-toggle="modal">Reseñas</button></li>
+								<li><button type="submit" name="Logout" class="btn btn-primary" data-toggle="modal">Cerrar sesión</button></li>
 							</ul>
 						</form>
 					</div>
@@ -72,6 +73,8 @@
 				header("Location: InfoProgrCl.php?cosa=$email");
 			} elseif (isset($_POST["Reseny"])) {
 				header("Location: InfoResenyesCl.php?cosa=$email");
+			} elseif (isset($_POST["Logout"])) {
+				header("Location: Index.html?cosa=$email");
 			}
 		?>
 
