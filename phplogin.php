@@ -39,7 +39,7 @@
             }
         } elseif ($result3->num_rows > 0) {
             if (password_verify($password, $row3['Clave'])) {
-                header("Location: InfoProgrAdm.php?cosa=$email");
+                header("Location: InfoPersonalAdm.php?cosa=$email");
             } else {
                 echo 'La contraseña no es válida.';
             }
