@@ -78,7 +78,7 @@
             } elseif (isset($_POST["Progr"])) {
 				header("Location: InfoProgrAdm.php?cosa=$email");
 			} elseif (isset($_POST["Logout"])) {
-				header("Location: Index.html?cosa=$email");
+				header("Location: Index.html");
 			}
 		?>
 
@@ -91,7 +91,7 @@
 					<div class="features">
 						<div class="col-half animate-box" data-animate-effect="fadeInLeft">
 							<div class="desc">
-								<h3>Clientes</h3>
+								<h3>Incidencias</h3>
 							</div>
 						</div>
 					</div>
@@ -112,24 +112,39 @@
 				die("Connection failed: " . $conn->connect_error);
 			}
 
-			$sql = "SELECT IDClient, Nom FROM clients";
+            $ObtenerIDTreb = "SELECT IDTreballador, NomTreballador FROM treballadors";
+    		$result2 = mysqli_query($conn,$ObtenerIDTreb);
+    		$IDTreb = mysqli_fetch_array($result2);
+
+			$sql = "SELECT * FROM incidencies where IDTreballador = $IDTreb[0]";
 			$result = $conn->query($sql);
 
 			if ($result->num_rows > 0) {
 				while ($row = $result->fetch_assoc()) {
 					echo "<table border='1' id='tabla' border='1'; width='520'>
 						<tr>
-							<th>Identificador</th>
-							<td>" . $row["IDClient"] . "</td>
-						</tr>
+							<th>Identificador de la incidencia</th></th>
+							<td>" . $row["IDIncidencia"] . "</td>
+						</tr>;
+
 						<tr>
-							<th>Nombre del usuario</th>
-							<td>" . $row["Nom"] . "</td>
+							<th>Descripción</th>
+							<td>" . $row["Descripcio"] . "</td>
+						</tr>;
+
+						<tr>
+							<th>Fecha de la incidencia</th>
+							<td>" . $row["DataIncidencia"] . "</td>
+						</tr>;
+
+						<tr>
+							<th>Estado</th>
+							<td>" . $row["Estat"] . "</td>
 						</tr>";
 				}
 				echo "</table>";
 			} else {
-				echo "<p id='CentrarTextoTabla'>No hay reservas encontrados.</p>";
+				echo "<p id='CentrarTextoTabla'>No se encontraron resultados.</p>";
 			}
 			$conn->close();
 		?>
