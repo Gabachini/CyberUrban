@@ -112,7 +112,7 @@
 				die("Connection failed: " . $conn->connect_error);
 			}
 
-            $sql = "SELECT Comentari FROM ressenyes";
+            $sql = "SELECT IDRessenyes, Comentari FROM ressenyes";
 			$result = $conn->query($sql);
 
 			$sql1 = "SELECT IDClient, Comentari FROM ressenyes";
@@ -126,12 +126,13 @@
 			if ($result->num_rows > 0) {
 				while ($row = $result->fetch_assoc()) {
 					echo "<table border='1' id='tabla' border='1'; width='520'>
-                        <tr>
-                            <th colspan='2'> $NomClient[0] </th>
-                        </tr>
 						<tr>
 							<th>Reseña</th></th>
 							<td>" . $row["Comentari"] . "</td>
+						</tr>
+                        <tr>
+							<th>Identificador de la reseña</th></th>
+							<td>" . $row["IDRessenyes"] . "</td>
 						</tr>";
 				}
 				echo "</table>";
@@ -142,10 +143,10 @@
 		?>
 
 		<div id="button1">
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal13">Eliminar reseña</button>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal17">Eliminar reseña</button>
 		</div>
 
-		<div class="modal fade" id="exampleModal12" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal fade" id="exampleModal17" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
@@ -153,7 +154,7 @@
 							<div class="column" id="main">
 								<form method="post" method="post" action="GestionUserAdm.php?cosa=<?php echo urlencode($email); ?>">
 									<div class="form-group">
-										<label for="exampleInputEmail1">Nombre del trabajador</label>
+										<label for="exampleInputEmail1">Identificador de la </label>
 										<input type="text" class="form-control" name="InputNombrTrabaj" id="InputNombrTrabaj" aria-describedby="emailHelp" placeholder="Nombre" required>
 									</div>
 									<button name="CrearTrabaj" type="submit" class="btn btn-primary">Crear trabajador</button>
