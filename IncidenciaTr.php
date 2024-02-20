@@ -22,7 +22,8 @@
         $sql1 = "DELETE FROM incidencies WHERE IDIncidencia = $descrp1 AND IDTreballador = $IDTreballador[0]";
         $conn->query($sql1);
     } elseif (isset($_POST['AceptarInci'])) {
-        $sql2 = "UPDATE incidencies SET IDTreballador = $IDTreballador[0], SET Estat = 'Aceptada' WHERE IDIncidencia = $descrp2";
+        $sql2 = "UPDATE incidencies SET IDTreballador = $IDTreballador[0], Estat = 'Aceptada' WHERE IDIncidencia = $descrp2";
+        echo $sql2;
         $conn->query($sql2);
     }
     $conn->close();
