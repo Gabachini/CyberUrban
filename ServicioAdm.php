@@ -12,9 +12,10 @@
     }
 
     // Obtener información del administrador
-    $ObtenerIDAdmin = "SELECT user FROM administradors WHERE user = '$User'";
+    $ObtenerIDAdmin = "SELECT user FROM administradors WHERE Email = '$email'";
     $resultAdmin = mysqli_query($conn, $ObtenerIDAdmin);
-
+    $IDAdmin = mysqli_fetch_array($result);
+ 
         $IdentServ1 = isset($_POST['InputIdenti1']) ? $_POST['InputIdenti1'] : '';
         $IdentServ2 = isset($_POST['InputIdenti2']) ? $_POST['InputIdenti2'] : '';
         $IdentServEdit = isset($_POST['InputIdentiEdit']) ? $_POST['InputIdentiEdit'] : '';
