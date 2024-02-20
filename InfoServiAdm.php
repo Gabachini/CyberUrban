@@ -109,11 +109,7 @@
 				die("Connection failed: " . $conn->connect_error);
 			}
 
-            $ObtenerIDDep = "SELECT IDDepartament FROM treballadors WHERE Email = '$email'";
-    		$result2 = mysqli_query($conn,$ObtenerIDDep);
-    		$IDDep = mysqli_fetch_array($result2);;
-
-			$sql = "SELECT IDServei, NomServei, Descripcio FROM serveis";
+			$sql = "SELECT IDServei, NomServei, Descripcio, Preu FROM serveis";
 			$result = $conn->query($sql);
 
 			if ($result->num_rows > 0) {
@@ -124,23 +120,19 @@
 							<td>" . $row["IDServei"] . "</td>
 						</tr>
 
-						<tr>
-							<th>Descripción</th>
+                        <tr>
+							<th>Nombre del cliente</th></th>
 							<td>" . $row["NomServei"] . "</td>
 						</tr>
 
-						<tr>
-							<th>Número de telefono</th>
+                        <tr>
+							<th>Nombre del cliente</th></th>
 							<td>" . $row["Descripcio"] . "</td>
 						</tr>
 
-						<tr>
-							<th>Correo</th>
-							<td>
-                                <table border='1' id='tabla' border='1'; width='520'>
-                                    <tr> $ObNomServei[0] </tr>
-                                </table>
-                            </td>
+                        <tr>
+							<th>Nombre del cliente</th></th>
+							<td>" . $row["Preu"] . "</td>
 						</tr>";
 				}
 				echo "</table>";
@@ -149,6 +141,97 @@
 			}
 			$conn->close();
 		?>
+
+        <div id="button1">
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal14">Añadir servicios</button>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal15">Eliminar servicios</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal16">Editar servicios</button>
+		</div>
+
+		<div class="modal fade" id="exampleModal14" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="column" id="main">
+								<form method="post" action="ServicioAdm.php?cosa=<?php echo urlencode($email); ?>">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Nombre del servicio</label>
+										<input type="text" class="form-control" name="InputNomServ" id="InputNomServ" aria-describedby="emailHelp" placeholder="Nombre" required>
+									</div>
+
+                                    <div class="form-group">
+										<label for="exampleInputEmail1">Descripcion del servicio</label>
+										<input type="text" class="form-control" name="InputDescServ" id="InputDescServ" aria-describedby="emailHelp" placeholder="Descripcion" required>
+									</div>
+
+                                    <div class="form-group">
+										<label for="exampleInputEmail1">Precio del servicio</label>
+										<input type="text" class="form-control" name="InputPreServ" id="InputPreServ" aria-describedby="emailHelp" placeholder="Precio" required>
+									</div>
+									<button name="ButtonServi1" type="submit" class="btn btn-primary">Añadir</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="exampleModal15" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="column" id="main">
+								<form method="post" action="ServicioAdm.php?cosa=<?php echo urlencode($email); ?>">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Identificador del servicio</label>
+										<input type="text" class="form-control" name="InputIdentAdm" id="InputIdentAdm" aria-describedby="emailHelp" placeholder="Identificador del servicio" required>
+									</div>
+									<button name="ButtonServi2" type="submit" class="btn btn-primary">Eliminar</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+        <div class="modal fade" id="exampleModal16" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="column" id="main">
+								<form method="post" action="ServicioCl.php?cosa=<?php echo urlencode($email); ?>">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Identificador del servicio</label>
+										<input type="text" class="form-control" name="InputIdenti2" id="InputIdenti2" aria-describedby="emailHelp" placeholder="Identificador del servicio" required>
+									</div>
+                                    <div class="form-group">
+										<label for="exampleInputEmail1">Nombre del servicio</label>
+										<input type="text" class="form-control" name="InputNomServ" id="InputNomServ" aria-describedby="emailHelp" placeholder="Nombre" required>
+									</div>
+
+                                    <div class="form-group">
+										<label for="exampleInputEmail1">Descripcion del servicio</label>
+										<input type="text" class="form-control" name="InputDescServ" id="InputDescServ" aria-describedby="emailHelp" placeholder="Descripcion" required>
+									</div>
+
+                                    <div class="form-group">
+										<label for="exampleInputEmail1">Precio del servicio</label>
+										<input type="text" class="form-control" name="InputPreServ" id="InputPreServ" aria-describedby="emailHelp" placeholder="Precio" required>
+									</div>
+									<button name="ButtonServi2" type="submit" class="btn btn-primary">Editar</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</body>
 
 	<footer id="fh5co-core-feature" role="contentinfo">
