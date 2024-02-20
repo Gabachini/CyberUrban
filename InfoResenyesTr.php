@@ -88,7 +88,7 @@
 					<div class="features">
 						<div class="col-half animate-box" data-animate-effect="fadeInLeft">
 							<div class="desc">
-								<h3>Incidencias propias</h3>
+								<h3>Incidencias</h3>
 							</div>
 						</div>
 					</div>
