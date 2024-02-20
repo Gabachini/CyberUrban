@@ -11,28 +11,29 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $ObtenerID = "SELECT IDClient FROM clients WHERE Email = '$email'";
-    $result = mysqli_query($conn,$ObtenerID);
-    $IDClient = mysqli_fetch_array($result);
+    $UserElimIDClient = isset($_POST['InputIdentCli']) ? $_POST['InputIdentCli'] : '';
+    $UserElimIDTrabaj = isset($_POST['InputElimTrabaj']) ? $_POST['InputElimTrabaj'] : '';
+    $TreballNombr = isset($_POST['InputNombrTrabaj']) ? $_POST['InputNombrTrabaj'] : '';
+    $TreballEmail = isset($_POST['InputEmailTrabaj']) ? $_POST['InputEmailTrabaj'] : '';
+    $TreballTelef = isset($_POST['InputTelefTrabaj']) ? $_POST['InputTelefTrabaj'] : '';
+    $TreballIDDep = isset($_POST['InputIDDepTrabaj']) ? $_POST['InputIDDepTrabaj'] : '';
+    $TreballClave = isset($_POST['InputClaveTrabaj']) ? $_POST['InputClaveTrabaj'] : '';
 
-    $sql = "SELECT IDReserva ,DataReserva FROM reserves where IDClient = (SELECT IDClient FROM clients WHERE IDClient = $IDClient[0])";
-    $result = $conn->query($sql);
+    $ClaveEncryp = password_hash($TreballClave, PASSWORD_DEFAULT);
 
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            echo "<table border='1' id='tabla' border='1'; width='520'>
-                <tr>
-                    <th>Identificador</th>
-                    <td>" . $row["IDReserva"] . "</td>
-                </tr>
-                <tr>
-                    <th>Fecha</th>
-                    <td>" . $row["DataReserva"] . "</td>
-                </tr>";
-        }
-        echo "</table>";
-    } else {
-        echo "<p id='CentrarTextoTabla'>No hay reservas encontrados.</p>";
+    if (isset($_POST['ElimClient'])) {
+        $sql1 = "DELETE FROM clients WHERE IDClient = $UserElimIDClient";
+        $conn->query($sql1);
+    } elseif (isset($_POST['CrearTrabaj'])) {
+        $sql2 = "INSERT INTO treballadors (NomTreballador, Email, Telefon, IDDepartament, Clave) VALUES ('$TreballNombr', '$TreballEmail', '$TreballTelef', $TreballIDDep, '$ClaveEncryp')";
+        echo "$sql2";
+        $conn->query($sql2);
+    } elseif (isset($_POST['ElimTrabaj'])) {
+        $sql3 = "DELETE FROM treballadors WHERE IDTreballador = $UserElimIDTrabaj";
+        $conn->query($sql3);
     }
+
     $conn->close();
+
+    header("Location: InfoPersonalAdm.php?cosa=$email");
 ?>
