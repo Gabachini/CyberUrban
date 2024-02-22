@@ -149,7 +149,7 @@
 							<div class="column" id="main">
 								<form method="post" method="post" action="GestionUserAdm.php?cosa=<?php echo urlencode($email); ?>">
 									<div class="form-group">
-										<label for="exampleInputEmail1">Identificador de la </label>
+										<label for="exampleInputEmail1">Identificador </label>
 										<input type="text" class="form-control" name="InputNombrTrabaj" id="InputNombrTrabaj" aria-describedby="emailHelp" placeholder="Nombre" required>
 									</div>
 									<button name="CrearTrabaj" type="submit" class="btn btn-primary">Crear trabajador</button>

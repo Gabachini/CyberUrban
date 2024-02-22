@@ -119,7 +119,7 @@
                             <th colspan='2'>" . $row["Nom"] . "</th>
                         </tr>
 						<tr>
-							<th>Reseña</th></th>
+							<th>Comentario</th></th>
 							<td>" . $row["Comentari"] . "</td>
 						</tr>";
 				}

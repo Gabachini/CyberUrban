@@ -37,7 +37,7 @@
 	</head>
 
 	<body>
-		<div class="fh5co-loader"></div>
+	<div class="fh5co-loader"></div>
 		<div id="page">
 		<nav class="fh5co-nav" role="navigation">
 			<div class="container">
@@ -48,11 +48,12 @@
 					<div class="col-xs-10 text-right menu-1">
 						<form method="post">
 							<ul>
-								<li><button type="submit" name="InfoTreb" class="btn btn-primary" data-toggle="modal">Información personal</button></li>
-								<li><button type="submit" name="Inciden" class="btn btn-primary" data-toggle="modal">Incidencias</button></li>
-								<li><button type="submit" name="Serv" class="btn btn-primary" data-toggle="modal">Servicios</button></li>
-								<li><button type="submit" name="Resseny" class="btn btn-primary" data-toggle="modal">Reseñas</button></li>
-								<li><button type="submit" name="Progr" class="btn btn-primary" data-toggle="modal">Programas</button></li>
+								<li><button type="submit" name="InfoTreb" class="btn btn-primary" data-toggle="modal">Gestion de usuarios</button></li>
+								<li><button type="submit" name="Inciden" class="btn btn-primary" data-toggle="modal">Gestion de incidencias</button></li>
+								<li><button type="submit" name="Serv" class="btn btn-primary" data-toggle="modal">Gestion de servicios</button></li>
+								<li><button type="submit" name="Resseny" class="btn btn-primary" data-toggle="modal">Gestion de reseñas</button></li>
+                                <li><button type="submit" name="Reserv" class="btn btn-primary" data-toggle="modal">Gestion de reservas</button></li>
+								<li><button type="submit" name="Progr" class="btn btn-primary" data-toggle="modal">Gestion de programas</button></li>
 								<li><button type="submit" name="Logout" class="btn btn-primary" data-toggle="modal">Cerrar sesión</button></li>
 							</ul>
 						</form>
@@ -65,17 +66,19 @@
 			$email = $_GET['cosa'];
 
 			if (isset($_POST["InfoTreb"])) {
-				header("Location: InfoPersonalTr.php?cosa=$email");
+				header("Location: InfoPersonalAdm.php?cosa=$email");
 			} elseif (isset($_POST["Inciden"])) {
-				header("Location: InfoIncidenTr.php?cosa=$email");
+				header("Location: InfoIncidenAdm.php?cosa=$email");
 			} elseif (isset($_POST["Serv"])) {
-				header("Location: InfoServiTr.php?cosa=$email");
+				header("Location: InfoServiAdm.php?cosa=$email");
 			} elseif (isset($_POST["Resseny"])) {
-				header("Location: InfoResenyesTr.php?cosa=$email");
-			} elseif (isset($_POST["Progr"])) {
-				header("Location: InfoProgrTr.php?cosa=$email");
+				header("Location: InfoResenyesAdm.php?cosa=$email");
+			} elseif (isset($_POST["Reserv"])) {
+				header("Location: InfoReservesAdm.php?cosa=$email");
+            } elseif (isset($_POST["Progr"])) {
+				header("Location: InfoProgrAdm.php?cosa=$email");
 			} elseif (isset($_POST["Logout"])) {
-				header("Location: Index.html?cosa=$email");
+				header("Location: Index.html");
 			}
 		?>
 
@@ -116,22 +119,22 @@
 				while ($row = $result->fetch_assoc()) {
 					echo "<table border='1' id='tabla' border='1'; width='520'>
 						<tr>
-							<th>Nombre del cliente</th></th>
+							<th>Identificador del servicio</th></th>
 							<td>" . $row["IDServei"] . "</td>
 						</tr>
 
                         <tr>
-							<th>Nombre del cliente</th></th>
+							<th>Nombre del servicio</th></th>
 							<td>" . $row["NomServei"] . "</td>
 						</tr>
 
                         <tr>
-							<th>Nombre del cliente</th></th>
+							<th>Descripción del servicio</th></th>
 							<td>" . $row["Descripcio"] . "</td>
 						</tr>
 
                         <tr>
-							<th>Nombre del cliente</th></th>
+							<th>Precio del servicio</th></th>
 							<td>" . $row["Preu"] . "</td>
 						</tr>";
 				}
@@ -187,7 +190,7 @@
 								<form method="post" action="ServicioAdm.php?cosa=<?php echo urlencode($email); ?>">
 									<div class="form-group">
 										<label for="exampleInputEmail1">Identificador del servicio</label>
-										<input type="text" class="form-control" name="InputIdentAdm" id="InputIdentAdm" aria-describedby="emailHelp" placeholder="Identificador del servicio" required>
+										<input type="text" class="form-control" name="InputIdentServ" id="InputIdentServ" aria-describedby="emailHelp" placeholder="Identificador del servicio" required>
 									</div>
 									<button name="ButtonServi2" type="submit" class="btn btn-primary">Eliminar</button>
 								</form>
@@ -204,26 +207,26 @@
 					<div class="modal-content">
 						<div class="modal-body">
 							<div class="column" id="main">
-								<form method="post" action="ServicioCl.php?cosa=<?php echo urlencode($email); ?>">
+								<form method="post" action="ServicioAdm.php?cosa=<?php echo urlencode($email); ?>">
 									<div class="form-group">
 										<label for="exampleInputEmail1">Identificador del servicio</label>
-										<input type="text" class="form-control" name="InputIdenti2" id="InputIdenti2" aria-describedby="emailHelp" placeholder="Identificador del servicio" required>
+										<input type="text" class="form-control" name="InputIdentServ2" id="InputIdentServ2" aria-describedby="emailHelp" placeholder="Identificador del servicio" required>
 									</div>
                                     <div class="form-group">
 										<label for="exampleInputEmail1">Nombre del servicio</label>
-										<input type="text" class="form-control" name="InputNomServ" id="InputNomServ" aria-describedby="emailHelp" placeholder="Nombre" required>
+										<input type="text" class="form-control" name="InputNomServ2" id="InputNomServ2" aria-describedby="emailHelp" placeholder="Nombre">
 									</div>
 
                                     <div class="form-group">
 										<label for="exampleInputEmail1">Descripcion del servicio</label>
-										<input type="text" class="form-control" name="InputDescServ" id="InputDescServ" aria-describedby="emailHelp" placeholder="Descripcion" required>
+										<input type="text" class="form-control" name="InputDescServ2" id="InputDescServ2" aria-describedby="emailHelp" placeholder="Descripcion">
 									</div>
 
                                     <div class="form-group">
 										<label for="exampleInputEmail1">Precio del servicio</label>
-										<input type="text" class="form-control" name="InputPreServ" id="InputPreServ" aria-describedby="emailHelp" placeholder="Precio" required>
+										<input type="text" class="form-control" name="InputPreServ2" id="InputPreServ2" aria-describedby="emailHelp" placeholder="Precio">
 									</div>
-									<button name="ButtonServi2" type="submit" class="btn btn-primary">Editar</button>
+									<button name="ButtonServi3" type="submit" class="btn btn-primary">Editar</button>
 								</form>
 							</div>
 						</div>

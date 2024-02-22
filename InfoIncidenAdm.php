@@ -150,7 +150,7 @@
 			$conn->close();
 		?>
 
-<div id="fh5co-core-feature">
+		<div id="fh5co-core-feature">
 			<div class="container">
 				<div class="row">
 					<div class="features">
@@ -214,6 +214,30 @@
 			}
 			$conn->close();
 		?>
+
+		<div id="button1">
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal17">Eliminar incidencia</button>
+		</div>
+
+		<div class="modal fade" id="exampleModal17" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="column" id="main">
+								<form method="post" action="IncidenciaAdm.php?cosa=<?php echo urlencode($email); ?>">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Identificador del servicio</label>
+										<input type="text" class="form-control" name="InputIdentIncid" id="InputIdentIncid" aria-describedby="emailHelp" placeholder="Identificador del servicio" required>
+									</div>
+									<button name="ButtonIdent1" type="submit" class="btn btn-primary">Eliminar</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</body>
 
 	<footer id="fh5co-core-feature" role="contentinfo">
