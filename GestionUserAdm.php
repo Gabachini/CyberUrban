@@ -11,26 +11,28 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $UserElimIDClient = isset($_POST['InputIdentCli']) ? $_POST['InputIdentCli'] : '';
-    $UserElimIDTrabaj = isset($_POST['InputElimTrabaj']) ? $_POST['InputElimTrabaj'] : '';
-    $TreballNombr = isset($_POST['InputNombrTrabaj']) ? $_POST['InputNombrTrabaj'] : '';
-    $TreballEmail = isset($_POST['InputEmailTrabaj']) ? $_POST['InputEmailTrabaj'] : '';
-    $TreballTelef = isset($_POST['InputTelefTrabaj']) ? $_POST['InputTelefTrabaj'] : '';
-    $TreballIDDep = isset($_POST['InputIDDepTrabaj']) ? $_POST['InputIDDepTrabaj'] : '';
-    $TreballClave = isset($_POST['InputClaveTrabaj']) ? $_POST['InputClaveTrabaj'] : '';
+    $UserElimIDClient = $mysqli->escape_string($_POST['InputIdentCli']);
+    $UserElimIDTrabaj = $mysqli->escape_string($_POST['InputElimTrabaj']);
+    $TreballNombr = $mysqli->escape_string($_POST['InputNombrTrabaj']);
+    $TreballEmail = $mysqli->escape_string($_POST['InputEmailTrabaj']);
+    $TreballTelef = $mysqli->escape_string($_POST['InputTelefTrabaj']);
+    $TreballIDDep = $mysqli->escape_string($_POST['InputIDDepTrabaj']);
+    $TreballClave = $mysqli->escape_string($_POST['InputClaveTrabaj']);
 
     $ClaveEncryp = password_hash($TreballClave, PASSWORD_DEFAULT);
 
     if (isset($_POST['ElimClient'])) {
-        $sql1 = "DELETE FROM clients WHERE IDClient = $UserElimIDClient";
-        $conn->query($sql1);
+        $sql1 = $conn->prepare('DELETE FROM clients WHERE IDClient = ?');
+        $sql1 = ->bind_param('i', $UserElimIDClient);
+        $sql1->execute();
     } elseif (isset($_POST['CrearTrabaj'])) {
-        $sql2 = "INSERT INTO treballadors (NomTreballador, Email, Telefon, IDDepartament, Clave) VALUES ('$TreballNombr', '$TreballEmail', '$TreballTelef', $TreballIDDep, '$ClaveEncryp')";
-        echo "$sql2";
-        $conn->query($sql2);
+        $sql2 = $conn->prepare('INSERT INTO treballadors (NomTreballador, Email, Telefon, IDDepartament, Clave) VALUES (?, ?, ?, ?, ?)');
+        $sql2 = ->bind_param('sssis', $TreballNombr, $TreballEmail, $TreballTelef, $TreballIDDep, $ClaveEncryp);
+        $sql2->execute();
     } elseif (isset($_POST['ElimTrabaj'])) {
-        $sql3 = "DELETE FROM treballadors WHERE IDTreballador = $UserElimIDTrabaj";
-        $conn->query($sql3);
+        $sql3 = $conn->prepare('DELETE FROM treballadors WHERE IDTreballador = ?');
+        $sql3 = ->bind_param('i', $UserElimIDTrabaj);
+        $sql3->execute();
     }
 
     $conn->close();
