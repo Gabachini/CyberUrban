@@ -113,7 +113,7 @@
     		$result2 = mysqli_query($conn,$ObtenerIDTreb);
     		$IDTreb = mysqli_fetch_array($result2);
 
-			$sql = "SELECT * FROM incidencies where IDTreballador = $IDTreb[0]";
+			$sql = "SELECT IDIncidencia, Descripcio, DataIncidencia, Estat, Nom FROM incidencies INNER JOIN clients ON clients.IDClient = incidencies.IDClient WHERE IDTreballador = $IDTreb[0]";
 			$result = $conn->query($sql);
 
 			if ($result->num_rows > 0) {
@@ -137,6 +137,11 @@
 						<tr>
 							<th>Estado</th>
 							<td>" . $row["Estat"] . "</td>
+						</tr>
+						
+						<tr>
+							<th>Nom del clients</th>
+							<td>" . $row["Nom"] . "</td>
 						</tr>";
 				}
 				echo "</table>";

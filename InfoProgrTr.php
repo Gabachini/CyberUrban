@@ -111,49 +111,39 @@
 
             $ObtenerIDDep = "SELECT IDDepartament FROM treballadors WHERE Email = '$email'";
     		$result2 = mysqli_query($conn,$ObtenerIDDep);
-    		$IDDep = mysqli_fetch_array($result2);
+    		$IDDep = mysqli_fetch_array($result2);;
 
-			$sql = "SELECT IDClient, Nom, Direccio, NumTelefon, Email FROM clients where IDClient IN (SELECT IDClient FROM adquireixprog WHERE IDPrograma IN (SELECT IDPrograma FROM gestionatprog WHERE IDDepartament = $IDDep[0]))";
+			$sql = "SELECT Nom, Direccio, NumTelefon, NomPrograma FROM adquireixprog INNER JOIN clients ON clients.IDClient = adquireixprog.IDPrograma INNER JOIN programes ON programes.IDPrograma = adquireixprog.IDPrograma";
 			$result = $conn->query($sql);
 
-            $sql2 = "SELECT IDClient, Nom, Direccio, NumTelefon, Email FROM clients where IDClient IN (SELECT IDClient FROM adquireixprog WHERE IDPrograma IN (SELECT IDPrograma FROM gestionatprog WHERE IDDepartament = $IDDep[0]))";
-			$result3 = mysqli_query($conn,$sql2);
-            $IDClient = mysqli_fetch_array($result3);
-
-			if ($IDClient[0] > 0) {
-				$sql3 = "SELECT NomPrograma FROM programes WHERE IDPrograma IN (SELECT IDPrograma FROM adquireixprog WHERE IDClient = $IDClient[0])";
-				$result4 = mysqli_query($conn,$sql3);
-				$ObNomServei = mysqli_fetch_array($result4);
-			}
-
-			if ($result->num_rows > 0) {
-				while ($row = $result->fetch_assoc()) {
-					echo "<table border='1' id='tabla' border='1'; width='520'>
-						<tr>
-							<th>Nombre del cliente</th></th>
-							<td>" . $row["Nom"] . "</td>
-						</tr>
-
-						<tr>
-							<th>Descripción</th>
-							<td>" . $row["Direccio"] . "</td>
-						</tr>
-
-						<tr>
-							<th>Número de telefono</th>
-							<td>" . $row["NumTelefon"] . "</td>
-						</tr>
-
-						<tr>
-							<th>Correo</th>
-							<td>
-                                <table border='1' id='tabla' border='1'; width='520'>
-                                    <tr> $ObNomServei[0] </tr>
-                                </table>
-                            </td>
-						</tr>";
+			if ($IDDep[0] == 8) {
+				if ($result->num_rows > 0) {
+					while ($row = $result->fetch_assoc()) {
+						echo "<table border='1' id='tabla' border='1'; width='520'>
+							<tr>
+								<th>Nombre del cliente</th></th>
+								<td>" . $row["Nom"] . "</td>
+							</tr>
+	
+							<tr>
+								<th>Dirección</th>
+								<td>" . $row["Direccio"] . "</td>
+							</tr>
+	
+							<tr>
+								<th>Número de telefono</th>
+								<td>" . $row["NumTelefon"] . "</td>
+							</tr>
+	
+							<tr>
+								<th>Nombre del programa</th>
+								<td>" . $row["NomPrograma"] . "</td>
+							</tr>";
+					}
+					echo "</table>";
+				} else {
+					echo "<p id='CentrarTextoTabla'>No disponible para su departamento.</p>";
 				}
-				echo "</table>";
 			} else {
 				echo "<p id='CentrarTextoTabla'>No disponible para su departamento.</p>";
 			}

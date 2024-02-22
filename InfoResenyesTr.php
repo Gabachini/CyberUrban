@@ -109,22 +109,14 @@
 				die("Connection failed: " . $conn->connect_error);
 			}
 
-            $sql = "SELECT Comentari FROM ressenyes";
+            $sql = "SELECT clients.Nom, Comentari FROM ressenyes INNER JOIN clients ON clients.IDClient = ressenyes.IDClient";
 			$result = $conn->query($sql);
-
-			$sql1 = "SELECT IDClient, Comentari FROM ressenyes";
-			$result1 = mysqli_query($conn,$sql1);
-            $Cosas = mysqli_fetch_array($result1);
-
-            $sql2 = "SELECT Nom FROM clients WHERE IDClient = $Cosas[0]";
-            $result2 = mysqli_query($conn,$sql2);
-            $NomClient = mysqli_fetch_array($result2);
 
 			if ($result->num_rows > 0) {
 				while ($row = $result->fetch_assoc()) {
 					echo "<table border='1' id='tabla' border='1'; width='520'>
                         <tr>
-                            <th colspan='2'> $NomClient[0] </th>
+                            <th colspan='2'>" . $row["Nom"] . "</th>
                         </tr>
 						<tr>
 							<th>Reseña</th></th>
