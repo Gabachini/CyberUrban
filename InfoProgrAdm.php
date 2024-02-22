@@ -91,7 +91,7 @@
 					<div class="features">
 						<div class="col-half animate-box" data-animate-effect="fadeInLeft">
 							<div class="desc">
-								<h3>Servicios</h3>
+								<h3>Programas</h3>
 							</div>
 						</div>
 					</div>
@@ -112,29 +112,29 @@
 				die("Connection failed: " . $conn->connect_error);
 			}
 
-			$sql = "SELECT IDServei, NomServei, Descripcio, Preu FROM serveis";
+			$sql = "SELECT IDPrograma, NomPrograma, Descripcio, Preu FROM programes";
 			$result = $conn->query($sql);
 
 			if ($result->num_rows > 0) {
 				while ($row = $result->fetch_assoc()) {
 					echo "<table border='1' id='tabla' border='1'; width='520'>
 						<tr>
-							<th>Identificador del servicio</th></th>
-							<td>" . $row["IDServei"] . "</td>
+							<th>Identificador del programa</th></th>
+							<td>" . $row["IDPrograma"] . "</td>
 						</tr>
 
                         <tr>
-							<th>Nombre del servicio</th></th>
-							<td>" . $row["NomServei"] . "</td>
+							<th>Nombre del programa</th></th>
+							<td>" . $row["NomPrograma"] . "</td>
 						</tr>
 
                         <tr>
-							<th>Descripción del servicio</th></th>
+							<th>Descripción del programa</th></th>
 							<td>" . $row["Descripcio"] . "</td>
 						</tr>
 
                         <tr>
-							<th>Precio del servicio</th></th>
+							<th>Precio del programa</th></th>
 							<td>" . $row["Preu"] . "</td>
 						</tr>";
 				}
@@ -146,33 +146,33 @@
 		?>
 
         <div id="button1">
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal14">Añadir servicios</button>
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal15">Eliminar servicios</button>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal16">Editar servicios</button>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal18">Añadir programa</button>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal19">Eliminar programa</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal20">Editar programa</button>
 		</div>
 
-		<div class="modal fade" id="exampleModal14" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal fade" id="exampleModal18" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-body">
 							<div class="column" id="main">
-								<form method="post" action="ServicioAdm.php?cosa=<?php echo urlencode($email); ?>">
+								<form method="post" action="ProgramaAdm.php?cosa=<?php echo urlencode($email); ?>">
 									<div class="form-group">
-										<label for="exampleInputEmail1">Nombre del servicio</label>
-										<input type="text" class="form-control" name="InputNomServ" id="InputNomServ" aria-describedby="emailHelp" placeholder="Nombre" required>
+										<label for="exampleInputEmail1">Nombre del programa</label>
+										<input type="text" class="form-control" name="InputNomProg" id="InputNomProg" aria-describedby="emailHelp" placeholder="Nombre" required>
 									</div>
 
                                     <div class="form-group">
-										<label for="exampleInputEmail1">Descripcion del servicio</label>
-										<input type="text" class="form-control" name="InputDescServ" id="InputDescServ" aria-describedby="emailHelp" placeholder="Descripcion" required>
+										<label for="exampleInputEmail1">Descripcion del programa</label>
+										<input type="text" class="form-control" name="InputDescProg" id="InputDescProg" aria-describedby="emailHelp" placeholder="Descripcion" required>
 									</div>
 
                                     <div class="form-group">
-										<label for="exampleInputEmail1">Precio del servicio</label>
-										<input type="text" class="form-control" name="InputPreServ" id="InputPreServ" aria-describedby="emailHelp" placeholder="Precio" required>
+										<label for="exampleInputEmail1">Precio del programa</label>
+										<input type="text" class="form-control" name="InputPreProg" id="InputPreProg" aria-describedby="emailHelp" placeholder="Precio" required>
 									</div>
-									<button name="ButtonServi1" type="submit" class="btn btn-primary">Añadir</button>
+									<button name="ButtonProg1" type="submit" class="btn btn-primary">Añadir</button>
 								</form>
 							</div>
 						</div>
@@ -181,18 +181,18 @@
 			</div>
 		</div>
 
-		<div class="modal fade" id="exampleModal15" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal fade" id="exampleModal19" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-body">
 							<div class="column" id="main">
-								<form method="post" action="ServicioAdm.php?cosa=<?php echo urlencode($email); ?>">
+								<form method="post" action="ProgramaAdm.php?cosa=<?php echo urlencode($email); ?>">
 									<div class="form-group">
-										<label for="exampleInputEmail1">Identificador del servicio</label>
-										<input type="text" class="form-control" name="InputIdentServ" id="InputIdentServ" aria-describedby="emailHelp" placeholder="Identificador del servicio" required>
+										<label for="exampleInputEmail1">Identificador del programa</label>
+										<input type="text" class="form-control" name="InputIdentProg" id="InputIdentProg" aria-describedby="emailHelp" placeholder="Identificador del servicio" required>
 									</div>
-									<button name="ButtonServi2" type="submit" class="btn btn-primary">Eliminar</button>
+									<button name="ButtonProg2" type="submit" class="btn btn-primary">Eliminar</button>
 								</form>
 							</div>
 						</div>
@@ -201,32 +201,32 @@
 			</div>
 		</div>
 
-        <div class="modal fade" id="exampleModal16" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="exampleModal20" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-body">
 							<div class="column" id="main">
-								<form method="post" action="ServicioAdm.php?cosa=<?php echo urlencode($email); ?>">
+								<form method="post" action="ProgramaAdm.php?cosa=<?php echo urlencode($email); ?>">
 									<div class="form-group">
-										<label for="exampleInputEmail1">Identificador del servicio</label>
-										<input type="text" class="form-control" name="InputIdentServ2" id="InputIdentServ2" aria-describedby="emailHelp" placeholder="Identificador del servicio" required>
+										<label for="exampleInputEmail1">Identificador del programa</label>
+										<input type="text" class="form-control" name="InputIdentProg2" id="InputIdentProg2" aria-describedby="emailHelp" placeholder="Identificador del servicio" required>
 									</div>
                                     <div class="form-group">
 										<label for="exampleInputEmail1">Nombre del servicio</label>
-										<input type="text" class="form-control" name="InputNomServ2" id="InputNomServ2" aria-describedby="emailHelp" placeholder="Nombre">
+										<input type="text" class="form-control" name="InputNomProg2" id="InputNomProg2" aria-describedby="emailHelp" placeholder="Nombre">
 									</div>
 
                                     <div class="form-group">
 										<label for="exampleInputEmail1">Descripcion del servicio</label>
-										<input type="text" class="form-control" name="InputDescServ2" id="InputDescServ2" aria-describedby="emailHelp" placeholder="Descripcion">
+										<input type="text" class="form-control" name="InputDescProg2" id="InputDescProg2" aria-describedby="emailHelp" placeholder="Descripcion">
 									</div>
 
                                     <div class="form-group">
 										<label for="exampleInputEmail1">Precio del servicio</label>
-										<input type="text" class="form-control" name="InputPreServ2" id="InputPreServ2" aria-describedby="emailHelp" placeholder="Precio">
+										<input type="text" class="form-control" name="InputPreProg2" id="InputPreProg2" aria-describedby="emailHelp" placeholder="Precio">
 									</div>
-									<button name="ButtonServi3" type="submit" class="btn btn-primary">Editar</button>
+									<button name="ButtonProg3" type="submit" class="btn btn-primary">Editar</button>
 								</form>
 							</div>
 						</div>

@@ -23,6 +23,11 @@
     if (isset($_POST['ButtonServi1'])) {
         $sql1 = "INSERT INTO serveis (NomServei, Descripcio, Preu) VALUES ('$NomServ', '$DesServ', '$PreServ')";
         $conn->query($sql1);
+        $sql2 = "SELECT IDServei FROM serveis WHERE NomServei = '$NomServ' AND Descripcio = '$DesServ' AND Preu = '$PreServ'";
+        $result = mysqli_query($conn,$sql2);
+		$IDServei = mysqli_fetch_array($result);
+        $sql3 = "INSERT INTO gestionatserv (IDServei, IDDepartament) VALUES ($IDServei[0], 7)";
+        $conn->query($sql3);
     } elseif (isset($_POST['ButtonServi2'])) {
         $sql1 = "DELETE FROM adquireixserv WHERE IDServei = $ElimServ";
         $sql2 = "DELETE FROM gestionatserv WHERE IDServei = $ElimServ";
@@ -50,4 +55,3 @@
     
     header("Location: InfoServiAdm.php?cosa=$email");
 ?>
-
