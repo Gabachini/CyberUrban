@@ -91,7 +91,7 @@
 					<div class="features">
 						<div class="col-half animate-box" data-animate-effect="fadeInLeft">
 							<div class="desc">
-								<h3>Incidencias</h3>
+								<h3>Incidencias aceptadas</h3>
 							</div>
 						</div>
 					</div>
@@ -112,11 +112,7 @@
 				die("Connection failed: " . $conn->connect_error);
 			}
 
-            $ObtenerIDTreb = "SELECT IDTreballador, NomTreballador FROM treballadors";
-    		$result2 = mysqli_query($conn,$ObtenerIDTreb);
-    		$IDTreb = mysqli_fetch_array($result2);
-
-			$sql = "SELECT * FROM incidencies where IDTreballador = $IDTreb[0]";
+			$sql = "SELECT IDIncidencia, Descripcio, DataIncidencia, Estat, NomTreballador FROM incidencies INNER JOIN treballadors ON treballadors.IDTreballador = incidencies.IDTreballador WHERE Estat = 'Aceptada'";
 			$result = $conn->query($sql);
 
 			if ($result->num_rows > 0) {
@@ -140,6 +136,76 @@
 						<tr>
 							<th>Estado</th>
 							<td>" . $row["Estat"] . "</td>
+						</tr>
+						
+						<tr>
+							<th>Nombre del trabajador</th>
+							<td>" . $row["NomTreballador"] . "</td>
+						</tr>";
+				}
+				echo "</table>";
+			} else {
+				echo "<p id='CentrarTextoTabla'>No se encontraron resultados.</p>";
+			}
+			$conn->close();
+		?>
+
+<div id="fh5co-core-feature">
+			<div class="container">
+				<div class="row">
+					<div class="features">
+						<div class="col-half animate-box" data-animate-effect="fadeInLeft">
+							<div class="desc">
+								<h3>Incidencias sin aceptar</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<?php
+			$DATABASE_HOST = 'localhost';
+			$DATABASE_USER = 'root';
+			$DATABASE_PASS = '';
+			$DATABASE_NAME = 'cyberurban';
+			$email = $_GET['cosa'];
+		
+			$conn = new mysqli($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+		
+			if ($conn->connect_error) {
+				die("Connection failed: " . $conn->connect_error);
+			}
+
+			$sql = "SELECT IDIncidencia, Descripcio, DataIncidencia, Estat, Nom FROM incidencies INNER JOIN clients ON clients.IDClient = incidencies.IDClient WHERE Estat = 'Sin aceptar'";
+			$result = $conn->query($sql);
+
+			if ($result->num_rows > 0) {
+				while ($row = $result->fetch_assoc()) {
+					echo "<table border='1' id='tabla' border='1'; width='520'>
+						<tr>
+							<th>Identificador de la incidencia</th></th>
+							<td>" . $row["IDIncidencia"] . "</td>
+						</tr>;
+
+						<tr>
+							<th>Descripción</th>
+							<td>" . $row["Descripcio"] . "</td>
+						</tr>;
+
+						<tr>
+							<th>Fecha de la incidencia</th>
+							<td>" . $row["DataIncidencia"] . "</td>
+						</tr>;
+
+						<tr>
+							<th>Estado</th>
+							<td>" . $row["Estat"] . "</td>
+						</tr>
+						
+						<tr>
+							<th>Nombre del cliente</th>
+							<td>" . $row["Nom"] . "</td>
 						</tr>";
 				}
 				echo "</table>";
