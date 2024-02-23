@@ -93,7 +93,7 @@
 					<div class="features">
 						<div class="col-half animate-box" data-animate-effect="fadeInLeft">
 							<div class="desc">
-								<h3>Incidencias</h3>
+								<h3>Incidencias aceptadas</h3>
 							</div>
 						</div>
 					</div>
@@ -114,7 +114,7 @@
 				die("Connection failed: " . $conn->connect_error);
 			}
 
-			$sql = "SELECT IDIncidencia, Descripcio, DataIncidencia, Estat FROM incidencies WHERE IDClient = (SELECT IDClient FROM clients where Email = '$email');";
+			$sql = "SELECT IDIncidencia, Descripcio, DataIncidencia, Estat FROM incidencies WHERE IDClient = (SELECT IDClient FROM clients where Email = '$email') AND Estat = 'Aceptada';";
 			$result = $conn->query($sql);
 
 			if ($result->num_rows > 0) {
@@ -137,7 +137,66 @@
 						<tr>
 							<th>Estado</th>
 							<td>" . $row["Estat"] . "</td>
-						</tr>";
+						</tr>	";
+				}
+				echo "</table>";
+			} else {
+				echo "<p id='CentrarTextoTabla'>Ho hay incidencias encontradas.</p>";
+			}
+			$conn->close();
+		?>
+
+		<div id="fh5co-core-feature">
+			<div class="container">
+				<div class="row">
+					<div class="features">
+						<div class="col-half animate-box" data-animate-effect="fadeInLeft">
+							<div class="desc">
+								<h3>Incidencias sin aceptar</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<?php
+			$DATABASE_HOST = 'localhost';
+			$DATABASE_USER = 'root';
+			$DATABASE_PASS = '';
+			$DATABASE_NAME = 'cyberurban';
+			$email = $_GET['cosa'];
+		
+			$conn = new mysqli($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+		
+			if ($conn->connect_error) {
+				die("Connection failed: " . $conn->connect_error);
+			}
+
+			$sql = "SELECT IDIncidencia, Descripcio, DataIncidencia, Estat FROM incidencies WHERE IDClient = (SELECT IDClient FROM clients where Email = '$email') AND Estat = 'Sin aceptar';";
+			$result = $conn->query($sql);
+
+			if ($result->num_rows > 0) {
+				while ($row = $result->fetch_assoc()) {
+					echo "<table border='1' id='tabla' border='1'; width='520'>
+						<tr>
+							<th>Identificador de la incidencia</th>
+							<td>" . $row["IDIncidencia"] . "</td>
+						</tr>
+						<tr>
+							<th>Descripción</th>
+							<td>" . $row["Descripcio"] . "</td>
+						</tr>
+
+						<tr>
+							<th>Fecha</th>
+							<td>" . $row["DataIncidencia"] . "</td>
+						</tr>
+
+						<tr>
+							<th>Estado</th>
+							<td>" . $row["Estat"] . "</td>
+						</tr>	";
 				}
 				echo "</table>";
 			} else {
