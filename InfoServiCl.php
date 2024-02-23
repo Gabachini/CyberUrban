@@ -176,7 +176,7 @@
 			$result = mysqli_query($conn,$ObtenerID);
 			$IDClient = mysqli_fetch_array($result);
 
-			$sql = "SELECT IDServei, NomServei, Descripcio, Preu FROM serveis WHERE IDServei NOT IN (SELECT IDServei FROM adquireixserv WHERE IDClient = 5)";
+			$sql = "SELECT IDServei, NomServei, Descripcio, Preu FROM serveis WHERE IDServei NOT IN (SELECT IDServei FROM adquireixserv WHERE IDClient = $IDClient[0])";
 			$result = $conn->query($sql);
 
 			if ($result->num_rows > 0) {

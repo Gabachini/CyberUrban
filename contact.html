@@ -150,35 +150,30 @@
 					</div>
 					<div class="col-md-6 animate-box">
 						<h3>¿En que podemos ayudarte?</h3>
-						<form action="#">
+						<form method="post" action="MailContact.php">
 							<div class="row form-group">
 								<div class="col-md-6">
-									<!-- <label for="fname">First Name</label> -->
-									<input type="text" id="fname" class="form-control" placeholder="Tu primer nombre">
+									<input type="text" name="fname" id="fname" class="form-control" placeholder="Tu primer nombre">
 								</div>
 								<div class="col-md-6">
-									<!-- <label for="lname">Last Name</label> -->
-									<input type="text" id="lname" class="form-control" placeholder="Tus apellidos">
+									<input type="text" name="lname" id="lname" class="form-control" placeholder="Tus apellidos">
 								</div>
 							</div>
 
 							<div class="row form-group">
 								<div class="col-md-12">
-									<!-- <label for="email">Email</label> -->
-									<input type="text" id="email" class="form-control" placeholder="Tu correo electrónico">
+									<input type="text" name="email" id="email" class="form-control" placeholder="Tu correo electrónico">
 								</div>
 							</div>
 
 							<div class="row form-group">
 								<div class="col-md-12">
-									<!-- <label for="subject">Subject</label> -->
-									<input type="text" id="subject" class="form-control" placeholder="Asunto de este mensaje">
+									<input type="text" name="subject" id="subject" class="form-control" placeholder="Asunto de este mensaje">
 								</div>
 							</div>
 
 							<div class="row form-group">
 								<div class="col-md-12">
-									<!-- <label for="message">Message</label> -->
 									<textarea name="message" id="message" cols="30" rows="10" class="form-control" placeholder="Breve explicación"></textarea>
 								</div>
 							</div>
@@ -192,7 +187,6 @@
 			</div>
 		</div>
 
-		<!-- Modal -->
 		<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-dialog" role="document">
