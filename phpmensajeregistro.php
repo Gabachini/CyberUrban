@@ -10,11 +10,13 @@
         die("Connection failed: " . $conn->connect_error);
     }
     
-    $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';
-    $direccion = isset($_POST['direccion']) ? $_POST['direccion'] : '';
+    $nombre = $conn->escape_string($_POST['nombre']);
+    $direccion = $conn->escape_string($_POST['direccion']);
 
-    $sql = "SELECT * FROM clients WHERE NumTelefon = '$telefono' OR Email = '$correo'";
-    $result = $conn->query($sql);
+    $sql = $conn->prepare('SELECT * FROM clients WHERE NumTelefon = ? OR Email = ?');
+    $sql->bind_param('ss', $telefono, $correo);
+    $sql->execute();
+    $result = $sql->get_result();
 
     header('Content-Type: application/json');
 

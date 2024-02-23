@@ -10,29 +10,31 @@
         die("Connection failed: " . $conn->connect_error);
     }
     
-    $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';
-    $direccion = isset($_POST['direccion']) ? $_POST['direccion'] : '';
-    $telefono = isset($_POST["numtel"]) ? $_POST['numtel'] : '';
-    $correo = isset($_POST['email']) ? $_POST['email'] : '';
-    $clave = isset($_POST['clave1']) ? $_POST['clave1'] : '';
-    $clave2 = isset($_POST['clave2']) ? $_POST['clave2'] : '';
+    $nombre = $conn->escape_string($_POST['nombre']);
+    $direccion = $conn->escape_string($_POST['direccion']);
+    $telefono = $conn->escape_string($_POST['numtel']);
+    $correo = $conn->escape_string($_POST['email']);
+    $clave = $conn->escape_string($_POST['clave1']);
+    $clave2 = $conn->escape_string($_POST['clave2']); 
 
-    $sql = "SELECT * FROM clients WHERE NumTelefon = '$numtel' OR Email = '$email'";
-    $result = $conn->query($sql);
+    $sql = $conn->prepare('SELECT * FROM clients WHERE NumTelefon = ? OR Email = ?');
+    $sql->bind_param('ss', $telefono, $correo);
+    $sql->execute();
+    $result = $sql->get_result();
 
     if ($clave === $clave2) {
         if ($result->num_rows === 0) {
             $ClaveEncryp = password_hash($clave, PASSWORD_DEFAULT);
             try {
-                $sql3 = "INSERT INTO clients (Nom, Direccio, NumTelefon, Email, clave) VALUES
-                ('$nombre', '$direccion', '$telefono', '$correo', '$ClaveEncryp')";
-                $conn->query($sql3);
+                $sql2 = $conn->prepare('INSERT INTO clients (Nom, Direccio, NumTelefon, Email, clave) VALUES (?, ?, ?, ?, ?)');
+                $sql2->bind_param('sssss', $nombre, $direccion, $telefono, $correo, $ClaveEncryp);
+                $sql2->execute();
+                header('Location: index.html');
             } catch (Exception $e) {
                 echo "Error: " . $e->getMessage();
             }
         } else {
             header('Location: index.html');
-            die();
         }
     }
 
