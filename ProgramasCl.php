@@ -15,11 +15,12 @@
     $result = mysqli_query($conn,$ObtenerID);
     $IDClient = mysqli_fetch_array($result);
 
-    $IdentProg1 = isset($_POST['InputIdenti1']) ? $_POST['InputIdenti1'] : '';
+    $IdentProg1 = $conn->escape_string($_POST['InputIdenti1']);
 
     if (isset($_POST['ButtonServi1'])) {
-        $sql1 = "INSERT INTO adquireixprog (IDPrograma, IDClient) VALUES ($IdentProg1 ,$IDClient[0])";
-        $conn->query($sql1);
+        $sql1 = $conn->prepare('INSERT INTO adquireixprog (IDPrograma, IDClient) VALUES (?, ?)');
+        $sql1->bind_param('ii', $IdentProg1, $IDClient[0]);
+        $sql1->execute();
     }
     $conn->close();
 

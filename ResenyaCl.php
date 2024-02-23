@@ -15,17 +15,19 @@
     $result = mysqli_query($conn,$ObtenerID);
     $IDClient = mysqli_fetch_array($result);
 
-    $IdentResseny1 = isset($_POST['IdentResseny1']) ? $_POST['IdentResseny1'] : '';
-    $IdentResseny2 = isset($_POST['IdentResseny2']) ? $_POST['IdentResseny2'] : '';
+    $IdentResseny1 = $conn->escape_string($_POST['IdentResseny1']);
+    $IdentResseny2 = $conn->escape_string($_POST['IdentResseny2']);
 
     echo "$IdentResseny1, $IdentResseny2, $IDClient[0]";
 
     if (isset($_POST['ButtonResen1'])) {
-        $sql1 = "INSERT INTO ressenyes (Comentari, IDClient) VALUES ('$IdentResseny1' ,$IDClient[0])";
-        $conn->query($sql1);
+        $sql1 = $conn->prepare('INSERT INTO ressenyes (Comentari, IDClient) VALUES (?, ?)');
+        $sql1->bind_param('si', $IdentResseny1, $IDClient[0]);
+        $sql1->execute();
     } elseif (isset($_POST['ButtonResen2'])) {
-        $sql2 = "DELETE FROM ressenyes WHERE IDRessenyes = $IdentResseny2 AND IDClient = $IDClient[0]";
-        $conn->query($sql2);
+        $sql1 = $conn->prepare('DELETE FROM ressenyes WHERE IDRessenyes = ? AND IDClient = ?');
+        $sql1->bind_param('si', $IdentResseny2, $IDClient[0]);
+        $sql1->execute();
     }
     $conn->close();
 

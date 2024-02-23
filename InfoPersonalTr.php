@@ -75,7 +75,7 @@
 			} elseif (isset($_POST["Progr"])) {
 				header("Location: InfoProgrTr.php?cosa=$email");
 			} elseif (isset($_POST["Logout"])) {
-				header("Location: Index.html?cosa=$email");
+				header("Location: Index.html");
 			}
 		?>
 
@@ -166,10 +166,6 @@
 									<div class="form-group">
 										<label for="exampleInputEmail1">Número de télefono</label>
 										<input type="text" class="form-control" name="InputNumbre1" id="InputNumbre1" aria-describedby="emailHelp" placeholder="télefono">
-									</div>
-									<div class="form-group">
-										<label for="exampleInputEmail1">Correo electrónico</label>
-										<input type="email" class="form-control" name="InputEmail1" id="InputEmail1" aria-describedby="emailHelp" placeholder="Correo">
 									</div>
 									<div class="form-group">
 										<label for="exampleInputPassword1">Clave</label>

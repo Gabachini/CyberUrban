@@ -11,11 +11,12 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $descrp1 = isset($_POST['InputIdentIncid']) ? $_POST['InputIdentIncid'] : '';
+    $descrp1 = $conn->escape_string($_POST['InputIdentIncid']);
 
     if (isset($_POST['ButtonIdent1'])) {
-        $sql1 = "DELETE FROM incidencies WHERE IDIncidencia = $descrp1";
-        $conn->query($sql1);
+        $sql1 = $conn->prepare('DELETE FROM incidencies WHERE IDIncidencia = ?');
+        $sql1->bind_param('i', $descrp1);
+        $sql1->execute();
     }
     $conn->close();
 

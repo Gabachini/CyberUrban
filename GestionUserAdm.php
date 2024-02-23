@@ -11,27 +11,27 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $UserElimIDClient = $mysqli->escape_string($_POST['InputIdentCli']);
-    $UserElimIDTrabaj = $mysqli->escape_string($_POST['InputElimTrabaj']);
-    $TreballNombr = $mysqli->escape_string($_POST['InputNombrTrabaj']);
-    $TreballEmail = $mysqli->escape_string($_POST['InputEmailTrabaj']);
-    $TreballTelef = $mysqli->escape_string($_POST['InputTelefTrabaj']);
-    $TreballIDDep = $mysqli->escape_string($_POST['InputIDDepTrabaj']);
-    $TreballClave = $mysqli->escape_string($_POST['InputClaveTrabaj']);
+    $UserElimIDClient = $conn->escape_string($_POST['InputIdentCli']);
+    $UserElimIDTrabaj = $conn->escape_string($_POST['InputElimTrabaj']);
+    $TreballNombr = $conn->escape_string($_POST['InputNombrTrabaj']);
+    $TreballEmail = $conn->escape_string($_POST['InputEmailTrabaj']);
+    $TreballTelef = $conn->escape_string($_POST['InputTelefTrabaj']);
+    $TreballIDDep = $conn->escape_string($_POST['InputIDDepTrabaj']);
+    $TreballClave = $conn->escape_string($_POST['InputClaveTrabaj']);
 
     $ClaveEncryp = password_hash($TreballClave, PASSWORD_DEFAULT);
 
     if (isset($_POST['ElimClient'])) {
         $sql1 = $conn->prepare('DELETE FROM clients WHERE IDClient = ?');
-        $sql1 = ->bind_param('i', $UserElimIDClient);
+        $sql1->bind_param('i', $UserElimIDClient);
         $sql1->execute();
     } elseif (isset($_POST['CrearTrabaj'])) {
         $sql2 = $conn->prepare('INSERT INTO treballadors (NomTreballador, Email, Telefon, IDDepartament, Clave) VALUES (?, ?, ?, ?, ?)');
-        $sql2 = ->bind_param('sssis', $TreballNombr, $TreballEmail, $TreballTelef, $TreballIDDep, $ClaveEncryp);
+        $sql2->bind_param('sssis', $TreballNombr, $TreballEmail, $TreballTelef, $TreballIDDep, $ClaveEncryp);
         $sql2->execute();
     } elseif (isset($_POST['ElimTrabaj'])) {
         $sql3 = $conn->prepare('DELETE FROM treballadors WHERE IDTreballador = ?');
-        $sql3 = ->bind_param('i', $UserElimIDTrabaj);
+        $sql3->bind_param('i', $UserElimIDTrabaj);
         $sql3->execute();
     }
 

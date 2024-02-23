@@ -74,7 +74,7 @@
 			} elseif (isset($_POST["Reseny"])) {
 				header("Location: InfoResenyesCl.php?cosa=$email");
 			} elseif (isset($_POST["Logout"])) {
-				header("Location: Index.html?cosa=$email");
+				header("Location: Index.html");
 			}
 		?>
 

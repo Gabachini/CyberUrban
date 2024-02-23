@@ -15,15 +15,17 @@
     $result = mysqli_query($conn,$ObtenerID);
     $IDClient = mysqli_fetch_array($result);
 
-    $IdentServ1 = isset($_POST['InputIdenti1']) ? $_POST['InputIdenti1'] : '';
-    $IdentServ2 = isset($_POST['InputIdenti2']) ? $_POST['InputIdenti2'] : '';
+    $IdentServ1 = $conn->escape_string($_POST['InputIdenti1']);
+    $IdentServ2 = $conn->escape_string($_POST['InputIdenti2']);
 
     if (isset($_POST['ButtonServi1'])) {
-        $sql1 = "INSERT INTO adquireixserv (IDServei, IDClient) VALUES ($IdentServ1 ,$IDClient[0])";
-        $conn->query($sql1);
+        $sql1 = $conn->prepare('INSERT INTO adquireixserv (IDServei, IDClient) VALUES (?, ?)');
+        $sql1->bind_param('ii', $IdentServ1, $IDClient[0]);
+        $sql1->execute();
     } elseif (isset($_POST['ButtonServi2'])) {
-        $sql2 = "DELETE FROM adquireixserv WHERE IDServei = $IdentServ2 AND IDClient = $IDClient[0]";
-        $conn->query($sql2);
+        $sql1 = $conn->prepare('DELETE FROM adquireixserv WHERE IDServei = ? AND IDClient = ?');
+        $sql1->bind_param('ii', $IdentServ2, $IDClient[0]);
+        $sql1->execute();
     }
     $conn->close();
 

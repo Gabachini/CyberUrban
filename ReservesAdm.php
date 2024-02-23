@@ -11,11 +11,12 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $IdentReserv = isset($_POST['IdentReservAdm']) ? $_POST['IdentReservAdm'] : '';
+    $IdentReserv = $descrp1 = $conn->escape_string($_POST['IdentReservAdm']);
 
     if (isset($_POST['ElimReservaAdm'])) {
-        $sql1 = "DELETE FROM reserves WHERE IDReserva = $IdentReserv";
-        $conn->query($sql1);
+        $sql1 = $conn->prepare('DELETE FROM reserves WHERE IDReserva = ?');
+        $sql1->bind_param('i', $IdentReserv);
+        $sql1->execute();
     }
     $conn->close();
 

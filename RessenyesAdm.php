@@ -11,11 +11,12 @@
         die("Connection failed: " . $conn->connect_error);
     }
  
-    $IdentRess = isset($_POST['InputIdentRess']) ? $_POST['InputIdentRess'] : '';
+    $IdentRess = $conn->escape_string($_POST['InputIdentRess']);
 
     if (isset($_POST['ElimRess'])) {
-        $sql1 = "DELETE FROM ressenyes WHERE IDRessenyes = $IdentRess";
-        $conn->query($sql1);
+        $sql1 = $conn->prepare('DELETE FROM ressenyes WHERE IDRessenyes = ?');
+        $sql1->bind_param('i', $IdentRess);
+        $sql1->execute();
     }
 
     $conn->close();

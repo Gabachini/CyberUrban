@@ -11,11 +11,11 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $nombre = isset($_POST['InputName1']) ? $_POST['InputName1'] : '';
-    $direccion = isset($_POST['InputPath1']) ? $_POST['InputPath1'] : '';
-    $telefono = isset($_POST['InputNumbre1']) ? $_POST['InputNumbre1'] : '';
-    $correo = isset($_POST['InputEmail1']) ? $_POST['InputEmail1'] : '';
-    $clave = isset($_POST['InputPassword1']) ? $_POST['InputPassword1'] : '';
+    $nombre = $conn->escape_string($_POST['InputName1']);
+    $direccion = $conn->escape_string($_POST['InputPath1']);
+    $telefono = $conn->escape_string($_POST['InputNumbre1']);
+    $correo = $conn->escape_string($_POST['InputEmail1']);
+    $clave = $conn->escape_string($_POST['InputPassword1']);
 
     if (!empty($nombre)) {
         $ssql1 = "UPDATE clients SET Nom='$nombre' WHERE Email='$email'";
@@ -25,33 +25,41 @@
     //-------------------------------------------------------------------
     
     if (!empty($direccion)) {
-        $ssql2 = "update clients set Direccio='$direccion' where Email='$email'";
-        $conn->query($ssql2);
+        $sql1 = $conn->prepare('UPDATE clients SET Direccio = ? WHERE Email = ?');
+        $sql1->bind_param('ss', $direccion, $email);
+        $sql1->execute();
     }
 
     //-------------------------------------------------------------------
 
     if (!empty($telefono)) {
-        $ssql3 = "update clients set NumTelefon='$telefono' where Email='$email'";
-        $conn->query($ssql3);
+        $sql1 = $conn->prepare('UPDATE clients SET NumTelefon = ? WHERE Email = ?');
+        $sql1->bind_param('ss', $telefono, $email);
+        $sql1->execute();
     }
 
     //-------------------------------------------------------------------
 
     if (!empty($correo)) {
-        $ssql5 = "update clients set Email='$correo' where Email='$email'";
-        $conn->query($ssql5);
+        $sql1 = $conn->prepare('UPDATE clients SET Email = ? WHERE Email = ?');
+        $sql1->bind_param('ss', $correo, $email);
+        $sql1->execute();
+
+        header("Location: InfoPersonalCl.php?cosa=$correo");
     }
 
     //-------------------------------------------------------------------
 
     if (!empty($clave)) {
         $ClaveEncryp = password_hash($clave, PASSWORD_DEFAULT);
-        $ssql6 = "update clients set Clave='$ClaveEncryp' where Email='$email'";
-        $conn->query($ssql6);
+        $sql1 = $conn->prepare('UPDATE clients SET Clave = ? where Email = ?');
+        $sql1->bind_param('ss', $ClaveEncryp, $email);
+        $sql1->execute();
     }
 
     $conn->close();
 
-    header("Location: InfoPersonalCl.php?cosa=$email");
+    if (empty($correo)) {
+        header("Location: InfoPersonalCl.php?cosa=$email");
+    }
 ?>

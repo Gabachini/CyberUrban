@@ -15,16 +15,18 @@
     $result = mysqli_query($conn,$ObtenerID);
     $IDTreballador = mysqli_fetch_array($result);
 
-    $descrp1 = isset($_POST['InputIdent1']) ? $_POST['InputIdent1'] : '';
-    $descrp2 = isset($_POST['InputIdent2']) ? $_POST['InputIdent2'] : '';
+    $descrp1 = $conn->escape_string($_POST['InputIdent1']);
+    $descrp2 = $conn->escape_string($_POST['InputIdent2']);
 
     if (isset($_POST['ElimiIncid'])) {
         $sql1 = "DELETE FROM incidencies WHERE IDIncidencia = $descrp1 AND IDTreballador = $IDTreballador[0]";
-        $conn->query($sql1);
+        $sql1 = $conn->prepare('DELETE FROM incidencies WHERE IDIncidencia = ? AND IDTreballador = ?');
+        $sql1->bind_param('ii', $descrp1, $IDTreballador[0]);
+        $sql1->execute();
     } elseif (isset($_POST['AceptarInci'])) {
-        $sql2 = "UPDATE incidencies SET IDTreballador = $IDTreballador[0], Estat = 'Aceptada' WHERE IDIncidencia = $descrp2";
-        echo $sql2;
-        $conn->query($sql2);
+        $sql1 = $conn->prepare('UPDATE incidencies SET IDTreballador = ?, Estat = "Aceptada" WHERE IDIncidencia = ?');
+        $sql1->bind_param('ii', $IDTreballador[0], $descrp2);
+        $sql1->execute();
     }
     $conn->close();
 
