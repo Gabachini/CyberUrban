@@ -1464,12 +1464,12 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
 #tabla {
-  margin: 10px auto;
-  table-layout: auto;
+  margin: 10px;
 }
 
 tr,th,td {
   text-align: center;
+  font-family: 'Times New Roman', Times, serif;
   padding: 8px;
 }
 
