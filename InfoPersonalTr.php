@@ -122,17 +122,17 @@
 						<tr>
 							<th>Nombre</th></th>
 							<td>" . $row["NomTreballador"] . "</td>
-						</tr>;
+						</tr>
 
 						<tr>
 							<th>Correo</th>
 							<td>" . $row["Email"] . "</td>
-						</tr>;
+						</tr>
 
 						<tr>
 							<th>Número de teléfono</th>
 							<td>" . $row["Telefon"] . "</td>
-						</tr>;
+						</tr>
 
 						<tr>
 							<th>Departamento</th>

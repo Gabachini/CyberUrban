@@ -144,7 +144,7 @@
 					<div class="modal-content">
 						<div class="modal-body">
 							<div class="column" id="main">
-								<form method="post" method="post" action="GestionUserAdm.php?cosa=<?php echo urlencode($email); ?>">
+								<form method="post" action="GestionUserAdm.php?cosa=<?php echo urlencode($email); ?>">
 									<div class="form-group">
 										<label for="exampleInputEmail1">Identificador</label>
 										<input type="text" class="form-control" name="InputIdentCli" id="InputIdentCli" aria-describedby="emailHelp" placeholder="Identificador">

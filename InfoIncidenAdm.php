@@ -121,17 +121,17 @@
 						<tr>
 							<th>Identificador de la incidencia</th></th>
 							<td>" . $row["IDIncidencia"] . "</td>
-						</tr>;
+						</tr>
 
 						<tr>
 							<th>Descripción</th>
 							<td>" . $row["Descripcio"] . "</td>
-						</tr>;
+						</tr>
 
 						<tr>
 							<th>Fecha de la incidencia</th>
 							<td>" . $row["DataIncidencia"] . "</td>
-						</tr>;
+						</tr>
 
 						<tr>
 							<th>Estado</th>

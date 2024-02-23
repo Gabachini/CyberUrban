@@ -121,17 +121,17 @@
 						<tr>
 							<th>Identificador</th>
 							<td>" . $row["IDServei"] . "</td>
-						</tr>;
+						</tr>
 
 						<tr>
 							<th>Servicio</th>
 							<td>" . $row["NomServei"] . "</td>
-						</tr>;
+						</tr>
 
 						<tr>
 							<th>Descripción</th>
 							<td>" . $row["Descripcio"] . "</td>
-						</tr>;
+						</tr>
 
 						<tr>
 							<th>Precio</th>
