@@ -117,7 +117,7 @@
 
 			if ($result->num_rows > 0) {
 				while ($row = $result->fetch_assoc()) {
-					echo "<table border='1' id='tabla' width='520'>
+					echo "<table border='1' id='tabla' border='1'; width='520'>
 						<tr>
 							<th>Nombre</th></th>
 							<td>" . $row["Nom"] . "</td>
