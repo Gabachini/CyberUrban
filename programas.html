@@ -47,26 +47,6 @@
 					alert("Las contraseñas no coinciden. Por favor, verifica.");
 					return false; // Evitar que el formulario se envíe
 				}
-
-				var email1 = document.getElementById("email11").value;
-
-				var xhr = new XMLHttpRequest();
-				xhr.open("GET", "phpmensaje.php?checkEmail=true&email=" + encodeURIComponent(email1), true);
-
-				xhr.onreadystatechange = function () {
-					console.log("if_1");
-					if (xhr.readyState == 4 && xhr.status == 200) {
-						var response = JSON.parse(xhr.responseText);
-						console.log("if_2");
-						if (response.exists) {
-							alert("El correo ya está registrado. Por favor, utiliza otro correo.");
-							console.log("if_3");
-							return false;
-						}
-					}
-				};
-
-				xhr.send();
 				return true;
 			}
 		</script>
@@ -88,25 +68,9 @@
 							<li><a href="about.html">Sobre nosotros</a></li>
 							<li class="has-dropdown">
 								<a href="services.html">Services</a>
-								<!--
-									<ul class="dropdown">
-										<li><a href="#">Servicio 1</a></li>
-										<li><a href="#">Servicio 2</a></li>
-										<li><a href="#">Servicio 3</a></li>
-										<li><a href="#">Servicio 4</a></li>
-									</ul>
-								-->
 							</li>
 							<li class="has-dropdown active">
 								<a href="programas.html">Programas para empresas</a>
-								<!--
-									<ul class="dropdown">
-										<li><a href="#">HTML5</a></li>
-										<li><a href="#">CSS3</a></li>
-										<li><a href="#">Sass</a></li>
-										<li><a href="#">jQuery</a></li>
-									</ul>
-								-->
 							</li>
 							<li><a href="work.html">Empresas colaboradoras</a></li>
 							<li><a href="contact.html">Contacto</a></li>
