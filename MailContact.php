@@ -43,7 +43,7 @@
         //Content
         $mail->isHTML(true);                                  //Set email format to HTML
         $mail->Subject = $subject;
-        $mail->Body = "$message <br> Enviado por: $email <br> Nombre: $fname $lname";
+        $mail->Body = "$message <br> <br> <br> Enviado por: $email <br> Nombre: $fname $lname";
     
         $mail->send();
         echo 'Message has been sent';
