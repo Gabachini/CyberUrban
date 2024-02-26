@@ -47,23 +47,6 @@
 					alert("Las contraseñas no coinciden. Por favor, verifica.");
 					return false; // Evitar que el formulario se envíe
 				}
-
-				var email1 = document.getElementById("email11").value;
-
-				var xhr = new XMLHttpRequest();
-				xhr.open("GET", "phpmensajeregistro.php?checkEmail=true&email=" + encodeURIComponent(email1), true);
-
-				xhr.onreadystatechange = function () {
-					if (xhr.readyState == 4 && xhr.status == 200) {
-						var response = JSON.parse(xhr.responseText);
-						if (response.exists) {
-							alert("El correo ya está registrado. Por favor, utiliza otro correo.");
-							return false;
-						}
-					}
-				};
-
-				xhr.send();
 				return true;
 			}
 		</script>
