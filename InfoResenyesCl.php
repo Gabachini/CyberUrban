@@ -167,8 +167,8 @@
 			$sql = "SELECT IDRessenyes, Comentari FROM ressenyes WHERE IDClient = $IDClient[0];";
 			$result = $conn->query($sql);
 
+			echo "<center> $Verif </center> <br>";
 			if ($result->num_rows > 0) {
-				echo "<center> $Verif </center> <br>";
 				while ($row = $result->fetch_assoc()) {
 					echo "<table border='1' id='tabla' border='1'; width='520'>
 						<tr>

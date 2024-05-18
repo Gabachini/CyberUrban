@@ -116,9 +116,9 @@
 			$sql = "SELECT * FROM clients where Email = '$email'";
 			$result = $conn->query($sql);
 
+			echo "<center> $Verif </center> <br>";
 			if ($result->num_rows > 0) {
 				while ($row = $result->fetch_assoc()) {
-					echo "<center> $Verif </center> <br>";
 					echo "<table border='1' id='tabla' border='1'; width='520'>
 						<tr>
 							<th>Nombre</th></th>

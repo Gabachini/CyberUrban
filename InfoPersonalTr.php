@@ -117,8 +117,8 @@
     		$result2 = mysqli_query($conn,$ObtenerID);
     		$IDClient = mysqli_fetch_array($result2);
 
+			echo "<center> $Verif </center> <br>";
 			if ($result->num_rows > 0) {
-				echo "<center> $Verif </center> <br>";
 				while ($row = $result->fetch_assoc()) {
 					echo "<table border='1' id='tabla' border='1'; width='520'>
 						<tr>
