@@ -138,10 +138,32 @@
 		?>
 
 		<div id="button1">
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal17">Eliminar reserva</button>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal20">Crear reserva</button>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal21">Modificar reserva</button>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal22">Eliminar reserva</button>
 		</div>
 
-		<div class="modal fade" id="exampleModal17" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal fade" id="exampleModal20" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="column" id="main">
+								<form method="post" method="post" action="ReservesAdm.php?cosa=<?php echo urlencode($email); ?>">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Fecha</label>
+										<input type="date" class="form-control" name="InputDate1" id="InputDate1" aria-describedby="emailHelp" placeholder="Fecha">
+									</div>
+									<button name="CreaReservaAdm" type="submit" class="btn btn-primary">Crear reserva</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="exampleModal21" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
@@ -150,7 +172,31 @@
 								<form method="post" method="post" action="ReservesAdm.php?cosa=<?php echo urlencode($email); ?>">
 									<div class="form-group">
 										<label for="exampleInputEmail1">Identificador</label>
-										<input type="text" class="form-control" name="IdentReservAdm" id="IdentReservAdm" aria-describedby="emailHelp" placeholder="Identificador" required>
+										<input type="text" class="form-control" name="IdentReservAdm1" id="IdentReservAdm1" aria-describedby="emailHelp" placeholder="Identificador" required>
+									</div>
+									<div class="form-group">
+										<label for="exampleInputEmail1">Fecha</label>
+										<input type="date" class="form-control" name="InputDate2" id="InputDate2" aria-describedby="emailHelp" placeholder="Fecha">
+									</div>
+									<button name="ModiReservaAdm" type="submit" class="btn btn-primary">Modificar reserva</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="exampleModal22" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="column" id="main">
+								<form method="post" method="post" action="ReservesAdm.php?cosa=<?php echo urlencode($email); ?>">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Identificador</label>
+										<input type="text" class="form-control" name="IdentReservAdm2" id="IdentReservAdm2" aria-describedby="emailHelp" placeholder="Identificador" required>
 									</div>
 									<button name="ElimReservaAdm" type="submit" class="btn btn-primary">Eliminar reserva</button>
 								</form>

@@ -138,7 +138,9 @@
 		?>
 
 		<div id="button1">
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal17">Eliminar reseña</button>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal17">Crear reseña</button>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal18">Modificar reseña</button>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal19">Eliminar reseña</button>
 		</div>
 
 		<div class="modal fade" id="exampleModal17" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -149,10 +151,54 @@
 							<div class="column" id="main">
 								<form method="post" method="post" action="RessenyesAdm.php?cosa=<?php echo urlencode($email); ?>">
 									<div class="form-group">
-										<label for="exampleInputEmail1">Identificador de la reseña</label>
-										<input type="text" class="form-control" name="InputIdentRess" id="InputIdentRess" aria-describedby="emailHelp" placeholder="Identificador" required>
+										<label for="exampleInputEmail1">Comentario de la reseña</label>
+										<input type="text" class="form-control" name="InputComentRess1" id="InputComentRess1" aria-describedby="emailHelp" placeholder="Comentario" required>
 									</div>
-									<button name="ElimRess" type="submit" class="btn btn-primary">Eliminar</button>
+									<button name="ElimRess1" type="submit" class="btn btn-primary">Crear</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="exampleModal18" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="column" id="main">
+								<form method="post" method="post" action="RessenyesAdm.php?cosa=<?php echo urlencode($email); ?>">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Identificador de la reseña</label>
+										<input type="text" class="form-control" name="InputIdentRess1" id="InputIdentRess1" aria-describedby="emailHelp" placeholder="Identificador" required>
+									</div>
+									<div class="form-group">
+										<label for="exampleInputEmail1">Comentario</label>
+										<input type="text" class="form-control" name="InputComentRess2" id="InputComentRess2" aria-describedby="emailHelp" placeholder="Comentario" required>
+									</div>
+									<button name="ElimRess2" type="submit" class="btn btn-primary">Modificar</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="exampleModal19" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="column" id="main">
+								<form method="post" method="post" action="RessenyesAdm.php?cosa=<?php echo urlencode($email); ?>">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Identificador de la reseña</label>
+										<input type="text" class="form-control" name="InputIdentRess2" id="InputIdentRess2" aria-describedby="emailHelp" placeholder="Identificador" required>
+									</div>
+									<button name="ElimRess3" type="submit" class="btn btn-primary">Eliminar</button>
 								</form>
 							</div>
 						</div>
