@@ -21,21 +21,54 @@
 
     $ClaveEncryp = password_hash($TreballClave, PASSWORD_DEFAULT);
 
+    $Verif = $_GET['pepe2'];
+
     if (isset($_POST['ElimClient'])) {
+        $sql2 = $conn->prepare('DELETE FROM adquireixprog WHERE IDClient = ?');
+        $sql2->bind_param('i', $UserElimIDClient);
+        $sql2->execute();
+        $sql3 = $conn->prepare('DELETE FROM adquireixserv WHERE IDClient = ?');
+        $sql3->bind_param('i', $UserElimIDClient);
+        $sql3->execute();
+        $sql4 = $conn->prepare('DELETE FROM incidencies WHERE IDClient = ?');
+        $sql4->bind_param('i', $UserElimIDClient);
+        $sql4->execute();
+        $sql5 = $conn->prepare('DELETE FROM reserves WHERE IDClient = ?');
+        $sql5->bind_param('i', $UserElimIDClient);
+        $sql5->execute();
+        $sql6 = $conn->prepare('DELETE FROM ressenyes WHERE IDClient = ?');
+        $sql6->bind_param('i', $UserElimIDClient);
+        $sql6->execute();
+
         $sql1 = $conn->prepare('DELETE FROM clients WHERE IDClient = ?');
         $sql1->bind_param('i', $UserElimIDClient);
         $sql1->execute();
+        if ($sql1->affected_rows === 0) {
+            $Verificacion = "No se ha podido eliminar el usuario correctamente.";
+        } else {
+            $Verificacion = "Se ha eliminado el usuario correctamente.";
+        }
     } elseif (isset($_POST['CrearTrabaj'])) {
-        $sql2 = $conn->prepare('INSERT INTO treballadors (NomTreballador, Email, Telefon, IDDepartament, Clave) VALUES (?, ?, ?, ?, ?)');
-        $sql2->bind_param('sssis', $TreballNombr, $TreballEmail, $TreballTelef, $TreballIDDep, $ClaveEncryp);
-        $sql2->execute();
+        $sql1 = $conn->prepare('INSERT INTO treballadors (NomTreballador, Email, Telefon, IDDepartament, Clave) VALUES (?, ?, ?, ?, ?)');
+        $sql1->bind_param('sssis', $TreballNombr, $TreballEmail, $TreballTelef, $TreballIDDep, $ClaveEncryp);
+        $sql1->execute();
+        if ($sql1->affected_rows === 0) {
+            $Verificacion = "No se ha podido crear el trabajador correctamente.";
+        } else {
+            $Verificacion = "Se ha creado el trabajador correctamente.";
+        }
     } elseif (isset($_POST['ElimTrabaj'])) {
-        $sql3 = $conn->prepare('DELETE FROM treballadors WHERE IDTreballador = ?');
-        $sql3->bind_param('i', $UserElimIDTrabaj);
-        $sql3->execute();
+        $sql1 = $conn->prepare('DELETE FROM treballadors WHERE IDTreballador = ?');
+        $sql1->bind_param('i', $UserElimIDTrabaj);
+        $sql1->execute();
+        if ($sql1->affected_rows === 0) {
+            $Verificacion = "No se ha podido eliminar el trabajador correctamente.";
+        } else {
+            $Verificacion = "Se ha eliminado el trabajador correctamente.";
+        }
     }
 
     $conn->close();
 
-    header("Location: InfoPersonalAdm.php?cosa=$email");
+    header("Location: InfoPersonalAdm.php?cosa=$email&pepe=$Verificacion");
 ?>

@@ -32,6 +32,12 @@
         $sql2 = $conn->prepare('INSERT INTO gestionatprog (IDPrograma, IDDepartament) VALUES (?, 8)');
         $sql2->bind_param('i', $IDPrograma[0]);
         $sql2->execute();
+
+        if ($sql2->affected_rows === 0) {
+            $Verificacion = "No se ha creado el programa correctamente.";
+        } else {
+            $Verificacion = "Se ha creado el programa correctamente.";
+        }
     } elseif (isset($_POST['ButtonProg2'])) {
         $sql3 = $conn->prepare('DELETE FROM adquireixprog WHERE IDPrograma = ?');
         $sql3->bind_param('i', $ElimProg);
@@ -44,11 +50,17 @@
         $sql5 = $conn->prepare('DELETE FROM programes WHERE IDPrograma = ?');
         $sql5->bind_param('i', $ElimProg);
         $sql5->execute();
+
+        if ($sql5->affected_rows === 0) {
+            $Verificacion = "No se ha eliminado el programa correctamente.";
+        } else {
+            $Verificacion = "Se ha eliminado el programa correctamente.";
+        }
     } elseif (isset($_POST['ButtonProg3'])) {
         if (!empty($NomProg2)) {
-            $sql6 = $conn->prepare('UPDATE programes SET NomPrograma = ? WHERE IDPrograma = ?');
-            $sql6->bind_param('si', $NomProg2, $IdenProg2);
-            $sql6->execute();
+            $sql5 = $conn->prepare('UPDATE programes SET NomPrograma = ? WHERE IDPrograma = ?');
+            $sql5->bind_param('si', $NomProg2, $IdenProg2);
+            $sql5->execute();
         }
     
         if (!empty($DesProg2)) {
@@ -62,9 +74,15 @@
             $sql7->bind_param('si', $PreProg2, $IdenProg2);
             $sql7->execute();
         }
+
+        if ($sql5->affected_rows === 0 || $sql6->affected_rows === 0 || $sql7->affected_rows === 0) {
+            $Verificacion = "No se ha modificado el progrma correctamente.";
+        } else {
+            $Verificacion = "Se ha modificado el programa correctamente.";
+        }
     }
     $conn->close();
     
-    header("Location: InfoProgrAdm.php?cosa=$email");
+    header("Location: InfoProgrAdm.php?cosa=$email&pepe=$Verificacion");
 ?>
 

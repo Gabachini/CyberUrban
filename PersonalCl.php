@@ -60,6 +60,7 @@
     $conn->close();
 
     if (empty($correo)) {
-        header("Location: InfoPersonalCl.php?cosa=$email");
+        $Verificacion = "El cambio se ha hecho correctamente";
+        header("Location: InfoPersonalCl.php?cosa=$email&pepe=$Verificacion");
     }
 ?>

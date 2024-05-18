@@ -105,6 +105,7 @@
 			$DATABASE_PASS = '';
 			$DATABASE_NAME = 'cyberurban';
 			$email = $_GET['cosa'];
+			$Verif = $_GET['pepe'];
 		
 			$conn = new mysqli($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
 		
@@ -115,6 +116,7 @@
 			$sql = "SELECT IDClient, Nom FROM clients";
 			$result = $conn->query($sql);
 
+			echo "<center> $Verif </center> <br>";
 			if ($result->num_rows > 0) {
 				while ($row = $result->fetch_assoc()) {
 					echo "<table border='1' id='tabla' border='1'; width='520'>
@@ -178,6 +180,7 @@
 			$DATABASE_PASS = '';
 			$DATABASE_NAME = 'cyberurban';
 			$email = $_GET['cosa'];
+			$Verif = $_GET['pepe'];
 		
 			$conn = new mysqli($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
 		
@@ -188,6 +191,7 @@
 			$sql = "SELECT IDTreballador, NomTreballador FROM treballadors";
 			$result = $conn->query($sql);
 
+			echo "<center> $Verif </center> <br>";
 			if ($result->num_rows > 0) {
 				while ($row = $result->fetch_assoc()) {
 					echo "<table border='1' id='tabla' border='1'; width='520'>

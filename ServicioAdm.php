@@ -32,14 +32,12 @@
         $sql3 = $conn->prepare('INSERT INTO gestionatserv (IDServei, IDDepartament) VALUES (?, 7)');
         $sql3->bind_param('i', $IDServei[0]);
         $sql3->execute();
+        if ($sql3->affected_rows === 0) {
+            $Verificacion = "No se ha podido crear el servicio correctamente.";
+        } else {
+            $Verificacion = "Se ha creado el servicio correctamente.";
+        }
     } elseif (isset($_POST['ButtonServi2'])) {
-        $sql1 = "DELETE FROM adquireixserv WHERE IDServei = $ElimServ";
-        $sql2 = "DELETE FROM gestionatserv WHERE IDServei = $ElimServ";
-        $sql3 = "DELETE FROM serveis WHERE IDServei = $ElimServ";
-        $conn->query($sql1);
-        $conn->query($sql2);
-        $conn->query($sql3);
-
         $sql4 = $conn->prepare('DELETE FROM adquireixserv WHERE IDServei = ?');
         $sql4->bind_param('i', $ElimServ);
         $sql4->execute();
@@ -51,6 +49,11 @@
         $sql6 = $conn->prepare('DELETE FROM serveis WHERE IDServei = ?');
         $sql6->bind_param('i', $ElimServ);
         $sql6->execute();
+        if ($sql6->affected_rows === 0) {
+            $Verificacion = "No se ha podido eliminar el servicio correctamente.";
+        } else {
+            $Verificacion = "Se ha eliminado el servicio correctamente.";
+        }
     } elseif (isset($_POST['ButtonServi3'])) {
         if (!empty($NomServ2)) {
             $sql7 = $conn->prepare('UPDATE serveis SET NomServei = ? WHERE IDServei = ?');
@@ -69,8 +72,13 @@
             $sql7->bind_param('di', $PreServ2, $IdenServ2);
             $sql7->execute();
         }
+        if ($sql7->affected_rows === 0) {
+            $Verificacion = "No se ha podido modificar el servicio correctamente.";
+        } else {
+            $Verificacion = "Se ha moficado el servicio correctamente.";
+        }
     }
     $conn->close();
     
-    header("Location: InfoServiAdm.php?cosa=$email");
+    header("Location: InfoServiAdm.php?cosa=$email&pepe=$Verificacion");
 ?>

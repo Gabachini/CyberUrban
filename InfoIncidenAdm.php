@@ -170,6 +170,7 @@
 			$DATABASE_PASS = '';
 			$DATABASE_NAME = 'cyberurban';
 			$email = $_GET['cosa'];
+			$Verif = $_GET['pepe'];
 		
 			$conn = new mysqli($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
 		
@@ -180,6 +181,7 @@
 			$sql = "SELECT IDIncidencia, Descripcio, DataIncidencia, Estat, Nom FROM incidencies INNER JOIN clients ON clients.IDClient = incidencies.IDClient WHERE Estat = 'Sin aceptar'";
 			$result = $conn->query($sql);
 
+			echo "<center> $Verif </center> <br>";
 			if ($result->num_rows > 0) {
 				while ($row = $result->fetch_assoc()) {
 					echo "<table border='1' id='tabla' border='1'; width='520'>
@@ -216,7 +218,9 @@
 		?>
 
 		<div id="button1">
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal17">Eliminar incidencia</button>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal17">Crear incidencia</button>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal18">Modificar incidencia</button>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal19">Eliminar incidencia</button>
 		</div>
 
 		<div class="modal fade" id="exampleModal17" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -227,10 +231,54 @@
 							<div class="column" id="main">
 								<form method="post" action="IncidenciaAdm.php?cosa=<?php echo urlencode($email); ?>">
 									<div class="form-group">
-										<label for="exampleInputEmail1">Identificador del servicio</label>
-										<input type="text" class="form-control" name="InputIdentIncid" id="InputIdentIncid" aria-describedby="emailHelp" placeholder="Identificador del servicio" required>
+										<label for="exampleInputEmail1">Comentario de la incidencia</label>
+										<input type="text" class="form-control" name="InputComeIncid" id="InputComeIncid" aria-describedby="emailHelp" placeholder="Comentario" required>
 									</div>
-									<button name="ButtonIdent1" type="submit" class="btn btn-primary">Eliminar</button>
+									<button name="ButtonIdent1" type="submit" class="btn btn-primary">Crear</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="exampleModal18" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="column" id="main">
+								<form method="post" action="IncidenciaAdm.php?cosa=<?php echo urlencode($email); ?>">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Identificador del servicio</label>
+										<input type="text" class="form-control" name="InputIdentIncid1" id="InputIdentIncid1" aria-describedby="emailHelp" placeholder="Identificador del servicio" required>
+									</div>
+									<div class="form-group">
+										<label for="exampleInputEmail1">Comentario</label>
+										<input type="text" class="form-control" name="InputModiIncid" id="InputModiIncid" aria-describedby="emailHelp" placeholder="Comentario" required>
+									</div>
+									<button name="ButtonIdent2" type="submit" class="btn btn-primary">Modificar</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="exampleModal19" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="column" id="main">
+								<form method="post" action="IncidenciaAdm.php?cosa=<?php echo urlencode($email); ?>">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Identificador del servicio</label>
+										<input type="text" class="form-control" name="InputIdentIncid2" id="InputIdentIncid2" aria-describedby="emailHelp" placeholder="Identificador del servicio" required>
+									</div>
+									<button name="ButtonIdent3" type="submit" class="btn btn-primary">Eliminar</button>
 								</form>
 							</div>
 						</div>

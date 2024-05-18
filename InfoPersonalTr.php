@@ -102,6 +102,7 @@
 			$DATABASE_PASS = '';
 			$DATABASE_NAME = 'cyberurban';
 			$email = $_GET['cosa'];
+			$Verif = $_GET['pepe'];
 		
 			$conn = new mysqli($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
 		
@@ -117,6 +118,7 @@
     		$IDClient = mysqli_fetch_array($result2);
 
 			if ($result->num_rows > 0) {
+				echo "<center> $Verif </center> <br>";
 				while ($row = $result->fetch_assoc()) {
 					echo "<table border='1' id='tabla' border='1'; width='520'>
 						<tr>

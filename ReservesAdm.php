@@ -22,17 +22,32 @@
         $sql1 = $conn->prepare('INSERT INTO reserves (DataReserva, IDClient) VALUES (?, 1)');
         $sql1->bind_param('s', $DateReserva1);
         $sql1->execute();
+        if ($sql1->affected_rows === 0) {
+            $Verificacion = "No se ha creado la resersa correctamente.";
+        } else {
+            $Verificacion = "Se ha creado la resersa correctamente.";
+        }
     } else if (isset($_POST['ModiReservaAdm'])) {
         $sql1 = $conn->prepare('UPDATE reserves SET DataReserva = ? WHERE IDReserva = ?');
         $sql1->bind_param('ss', $DateReserva2, $IdentReserva1);
         $sql1->execute();
+        if ($sql1->affected_rows === 0) {
+            $Verificacion = "No se ha podido modicar la reserva correctamente.";
+        } else {
+            $Verificacion = "Se ha modifcado la reserva correctamente.";
+        }
     } else if (isset($_POST['ElimReservaAdm'])) {
         $sql1 = $conn->prepare('DELETE FROM reserves WHERE IDReserva = ?');
         $sql1->bind_param('i', $IdentReserva2);
         $sql1->execute();
+        if ($sql1->affected_rows === 0) {
+            $Verificacion = "No se ha podido eliminar la reserva correctamente.";
+        } else {
+            $Verificacion = "Se ha eliminado la reserva correctamente.";
+        }
     }
 
     $conn->close();
 
-    header("Location: InfoReservesAdm.php?cosa=$email");
+    header("Location: InfoReservesAdm.php?cosa=$email&pepe=$Verificacion");
 ?>
